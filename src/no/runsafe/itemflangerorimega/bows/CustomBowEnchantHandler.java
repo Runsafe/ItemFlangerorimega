@@ -45,6 +45,10 @@ public class CustomBowEnchantHandler implements IEntityDamageByEntityEvent, IPro
 			MagicalArrow arrow = (MagicalArrow) event.getProjectile().getNMS();
 			RunsafeServer.Instance.getLogger().info("MAGICAL ARROW HIT THE FLOOR!");
 		}
+		else
+		{
+			RunsafeServer.Instance.getLogger().info("Non-magical arrow found..");
+		}
 	}
 
 	private boolean hasEnchant(RunsafeMeta item, ICustomBowEnchant enchant)
