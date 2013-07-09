@@ -3,7 +3,6 @@ package no.runsafe.itemflangerorimega.bows;
 import no.runsafe.framework.api.event.entity.IEntityDamageByEntityEvent;
 import no.runsafe.framework.api.event.entity.IEntityShootBowEvent;
 import no.runsafe.framework.api.event.entity.IProjectileHitEvent;
-import no.runsafe.framework.internal.wrapper.ObjectWrapper;
 import no.runsafe.framework.minecraft.RunsafeServer;
 import no.runsafe.framework.minecraft.entity.ProjectileEntity;
 import no.runsafe.framework.minecraft.entity.RunsafeProjectile;
@@ -32,7 +31,10 @@ public class CustomBowEnchantHandler implements IEntityDamageByEntityEvent, IPro
 			RunsafeProjectile projectile = (RunsafeProjectile) event.getDamageActor();
 			if (projectile.getEntityType() == ProjectileEntity.Arrow)
 			{
-				// We have an arrow.
+				if (this.isTrackedArrow(projectile))
+				{
+					RunsafeServer.Instance.getLogger().info("A tracked arrow just just an entity.");
+				}
 			}
 		}
 	}
@@ -40,15 +42,16 @@ public class CustomBowEnchantHandler implements IEntityDamageByEntityEvent, IPro
 	@Override
 	public void OnProjectileHit(RunsafeProjectileHitEvent event)
 	{
-		if (event.getProjectile().getNMS() instanceof MagicalArrow)
+		RunsafeProjectile projectile = event.getProjectile();
+		if (this.isTrackedArrow(projectile))
 		{
-			MagicalArrow arrow = (MagicalArrow) event.getProjectile().getNMS();
-			RunsafeServer.Instance.getLogger().info("MAGICAL ARROW HIT THE FLOOR!");
+			RunsafeServer.Instance.getLogger().info("A tracked arrow just landed");
 		}
-		else
-		{
-			RunsafeServer.Instance.getLogger().info("Non-magical arrow found..");
-		}
+	}
+
+	private boolean isTrackedArrow(RunsafeProjectile projectile)
+	{
+		return this.magicalArrows.contains(projectile.getEntityId());
 	}
 
 	private boolean hasEnchant(RunsafeMeta item, ICustomBowEnchant enchant)
@@ -62,10 +65,12 @@ public class CustomBowEnchantHandler implements IEntityDamageByEntityEvent, IPro
 	{
 		if (event.getEntity() instanceof RunsafePlayer)
 		{
-			RunsafePlayer player = (RunsafePlayer) event.getEntity();
-			event.setProjectile(ObjectWrapper.convert(new MagicalArrow(player).getBukkitEntity()));
+			int entityID = event.getProjectile().getEntityId();
+			if (!this.magicalArrows.contains(entityID))
+				this.magicalArrows.add(entityID);
 		}
 	}
 
+	private List<Integer> magicalArrows = new ArrayList<Integer>();
 	private List<ICustomBowEnchant> enchants = new ArrayList<ICustomBowEnchant>();
 }
