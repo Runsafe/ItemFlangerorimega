@@ -18,9 +18,9 @@ import java.util.List;
 
 public class CustomBowEnchantHandler implements IEntityDamageByEntityEvent, IProjectileHitEvent, IEntityShootBowEvent
 {
-	public CustomBowEnchantHandler(ICustomBowEnchant[] enchants)
+	public CustomBowEnchantHandler()
 	{
-		this.enchants = Arrays.asList(enchants);
+		//this.enchants = Arrays.asList(enchants);
 	}
 
 	@Override
