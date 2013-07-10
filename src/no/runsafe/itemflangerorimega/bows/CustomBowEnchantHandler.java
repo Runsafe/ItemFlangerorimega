@@ -5,6 +5,8 @@ import no.runsafe.framework.api.event.entity.IEntityShootBowEvent;
 import no.runsafe.framework.api.event.entity.IProjectileHitEvent;
 import no.runsafe.framework.minecraft.Item;
 import no.runsafe.framework.minecraft.entity.ProjectileEntity;
+import no.runsafe.framework.minecraft.entity.RunsafeEntity;
+import no.runsafe.framework.minecraft.entity.RunsafeLivingEntity;
 import no.runsafe.framework.minecraft.entity.RunsafeProjectile;
 import no.runsafe.framework.minecraft.event.entity.RunsafeEntityDamageByEntityEvent;
 import no.runsafe.framework.minecraft.event.entity.RunsafeEntityShootBowEvent;
@@ -91,23 +93,25 @@ public class CustomBowEnchantHandler implements IProjectileHitEvent, IEntityShoo
 	@Override
 	public void OnEntityShootBowEvent(RunsafeEntityShootBowEvent event)
 	{
-		if (event.getEntity() instanceof RunsafePlayer)
+		int entityID = event.getProjectile().getEntityId();
+
+		if (!this.trackedArrows.containsKey(entityID))
 		{
-			RunsafePlayer player = (RunsafePlayer) event.getEntity();
-			int entityID = event.getProjectile().getEntityId();
+			RunsafeEntity shootingEntity = event.getEntity();
+			RunsafeMeta item = null;
+			if (shootingEntity instanceof RunsafePlayer)
+				item = ((RunsafePlayer) shootingEntity).getItemInHand();
+			else if (shootingEntity instanceof RunsafeLivingEntity)
+				item = ((RunsafeLivingEntity) shootingEntity).getEquipment().getItemInHand();
 
-			if (!this.trackedArrows.containsKey(entityID))
+			if (item != null && item.is(Item.Combat.Bow))
 			{
-				RunsafeMeta item = player.getItemInHand();
-				if (item != null && item.is(Item.Combat.Bow))
-				{
-					List<ICustomBowEnchant> bowEnchants = new ArrayList<ICustomBowEnchant>();
-					for (ICustomBowEnchant enchant : this.enchants)
-						if (this.hasEnchant(item, enchant))
-							bowEnchants.add(enchant);
+				List<ICustomBowEnchant> bowEnchants = new ArrayList<ICustomBowEnchant>();
+				for (ICustomBowEnchant enchant : this.enchants)
+					if (this.hasEnchant(item, enchant))
+						bowEnchants.add(enchant);
 
-					this.trackedArrows.put(entityID, bowEnchants);
-				}
+				this.trackedArrows.put(entityID, bowEnchants);
 			}
 		}
 	}
