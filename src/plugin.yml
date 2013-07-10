@@ -1,10 +1,8 @@
 name: ItemFlangerorimega
 main: no.runsafe.itemflangerorimega.Plugin
 version: 1.0.@BUILD@
-authors: []
-depend: []
-description:
+author: Kruithne
+description: Custom item handling
 commands:
-  something:
-    description:
-    aliases: []
+  enchantbow:
+    description: Enchants a bow with some form of wizardry.

@@ -7,6 +7,8 @@ import no.runsafe.framework.minecraft.entity.RunsafeProjectile;
 public interface ICustomBowEnchant
 {
 	public String getEnchantText();
+	public String getSimpleName();
 	public void onArrowCollideBlock(RunsafeProjectile projectile, RunsafeBlock block);
 	public void onArrowCollideEntity(RunsafeProjectile projectile, RunsafeEntity entity);
+	public void onArrowCollide(RunsafeProjectile projectile);
 }
