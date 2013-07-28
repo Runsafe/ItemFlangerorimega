@@ -1,5 +1,7 @@
 package no.runsafe.itemflangerorimega.commands;
 
+import com.google.common.collect.ImmutableList;
+import no.runsafe.framework.api.command.argument.RequiredArgument;
 import no.runsafe.framework.api.command.player.PlayerCommand;
 import no.runsafe.framework.minecraft.Item;
 import no.runsafe.framework.minecraft.item.meta.RunsafeMeta;
@@ -7,6 +9,9 @@ import no.runsafe.framework.minecraft.player.RunsafePlayer;
 import no.runsafe.itemflangerorimega.bows.CustomBowEnchantHandler;
 import org.apache.commons.lang.StringUtils;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -14,8 +19,18 @@ public class EnchantBow extends PlayerCommand
 {
 	public EnchantBow(CustomBowEnchantHandler handler)
 	{
-		super("enchantbow", "Enchants a bow using a magical custom enchant.", "runsafe.flangerorimega.enchant.bows", "enchant");
+		super(
+			"enchantbow", "Enchants a bow using a magical custom enchant.", "runsafe.flangerorimega.enchant.bows",
+			new RequiredArgument("enchant")
+		);
 		this.handler = handler;
+	}
+
+	@Nullable
+	@Override
+	public List<String> getParameterOptions(@Nonnull String parameter)
+	{
+		return parameter.equals("enchant") ? ImmutableList.copyOf(handler.getAvailableEnchants()) : null;
 	}
 
 	@Override
