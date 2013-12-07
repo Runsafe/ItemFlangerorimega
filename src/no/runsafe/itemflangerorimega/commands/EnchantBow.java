@@ -3,9 +3,9 @@ package no.runsafe.itemflangerorimega.commands;
 import com.google.common.collect.ImmutableList;
 import no.runsafe.framework.api.command.argument.RequiredArgument;
 import no.runsafe.framework.api.command.player.PlayerCommand;
+import no.runsafe.framework.api.player.IPlayer;
 import no.runsafe.framework.minecraft.Item;
 import no.runsafe.framework.minecraft.item.meta.RunsafeMeta;
-import no.runsafe.framework.minecraft.player.RunsafePlayer;
 import no.runsafe.itemflangerorimega.bows.CustomBowEnchantHandler;
 import org.apache.commons.lang.StringUtils;
 
@@ -34,7 +34,7 @@ public class EnchantBow extends PlayerCommand
 	}
 
 	@Override
-	public String OnExecute(RunsafePlayer executor, Map<String, String> parameters)
+	public String OnExecute(IPlayer executor, Map<String, String> parameters)
 	{
 		String enchantType = parameters.get("enchant").toLowerCase();
 		Set<String> enchantTypes = this.handler.getAvailableEnchants();
