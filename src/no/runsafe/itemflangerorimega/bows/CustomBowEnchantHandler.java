@@ -1,18 +1,18 @@
 package no.runsafe.itemflangerorimega.bows;
 
+import no.runsafe.framework.api.entity.ILivingEntity;
 import no.runsafe.framework.api.event.entity.IEntityDamageByEntityEvent;
 import no.runsafe.framework.api.event.entity.IEntityShootBowEvent;
 import no.runsafe.framework.api.event.entity.IProjectileHitEvent;
+import no.runsafe.framework.api.player.IPlayer;
 import no.runsafe.framework.minecraft.Item;
 import no.runsafe.framework.minecraft.entity.ProjectileEntity;
 import no.runsafe.framework.minecraft.entity.RunsafeEntity;
-import no.runsafe.framework.minecraft.entity.RunsafeLivingEntity;
 import no.runsafe.framework.minecraft.entity.RunsafeProjectile;
 import no.runsafe.framework.minecraft.event.entity.RunsafeEntityDamageByEntityEvent;
 import no.runsafe.framework.minecraft.event.entity.RunsafeEntityShootBowEvent;
 import no.runsafe.framework.minecraft.event.entity.RunsafeProjectileHitEvent;
 import no.runsafe.framework.minecraft.item.meta.RunsafeMeta;
-import no.runsafe.framework.minecraft.player.RunsafePlayer;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -36,7 +36,7 @@ public class CustomBowEnchantHandler implements IProjectileHitEvent, IEntityShoo
 			{
 				List<ICustomBowEnchant> arrowEnchants = this.trackedArrows.get(projectile.getEntityId());
 				for (ICustomBowEnchant enchant : arrowEnchants)
-						enchant.onArrowCollideEntity(projectile, event.getEntity());
+					enchant.onArrowCollideEntity(projectile, event.getEntity());
 			}
 		}
 	}
@@ -99,10 +99,10 @@ public class CustomBowEnchantHandler implements IProjectileHitEvent, IEntityShoo
 		{
 			RunsafeEntity shootingEntity = event.getEntity();
 			RunsafeMeta item = null;
-			if (shootingEntity instanceof RunsafePlayer)
-				item = ((RunsafePlayer) shootingEntity).getItemInHand();
-			else if (shootingEntity instanceof RunsafeLivingEntity)
-				item = ((RunsafeLivingEntity) shootingEntity).getEquipment().getItemInHand();
+			if (shootingEntity instanceof IPlayer)
+				item = ((IPlayer) shootingEntity).getItemInHand();
+			else if (shootingEntity instanceof ILivingEntity)
+				item = ((ILivingEntity) shootingEntity).getEquipment().getItemInHand();
 
 			if (item != null && item.is(Item.Combat.Bow))
 			{
