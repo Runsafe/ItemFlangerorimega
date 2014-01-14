@@ -1,6 +1,7 @@
 package no.runsafe.itemflangerorimega.commands;
 
 import com.google.common.collect.ImmutableList;
+import no.runsafe.framework.api.command.argument.IArgumentList;
 import no.runsafe.framework.api.command.argument.RequiredArgument;
 import no.runsafe.framework.api.command.player.PlayerCommand;
 import no.runsafe.framework.api.player.IPlayer;
@@ -12,7 +13,6 @@ import org.apache.commons.lang.StringUtils;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class EnchantBow extends PlayerCommand
@@ -34,7 +34,7 @@ public class EnchantBow extends PlayerCommand
 	}
 
 	@Override
-	public String OnExecute(IPlayer executor, Map<String, String> parameters)
+	public String OnExecute(IPlayer executor, IArgumentList parameters)
 	{
 		String enchantType = parameters.get("enchant").toLowerCase();
 		Set<String> enchantTypes = this.handler.getAvailableEnchants();
