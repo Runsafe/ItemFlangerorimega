@@ -30,10 +30,6 @@ public class Plugin extends RunsafePlugin
 		addComponent(CustomBowEnchantHandler.class);
 		addComponent(CustomArmourEnchantHandler.class);
 
-		// Commands
-		addComponent(EnchantBow.class);
-		addComponent(EnchantArmour.class);
-
 		Command customEnchantCommand = new Command("customenchant", "Enchant an item with a custom enchant", null);
 		addComponent(customEnchantCommand);
 
