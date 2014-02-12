@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class EnchantArgument extends RequiredArgument implements ITabComplete, IValueExpander
+public class EnchantBowArgument extends RequiredArgument implements ITabComplete, IValueExpander
 {
-	public EnchantArgument(CustomBowEnchantHandler handler)
+	public EnchantBowArgument(CustomBowEnchantHandler handler)
 	{
 		super("enchant");
 		this.handler = handler;

@@ -11,6 +11,7 @@ import no.runsafe.framework.minecraft.item.meta.RunsafeMeta;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class CustomArmourEnchantHandler implements IEntityDamageEvent
 {
@@ -18,6 +19,21 @@ public class CustomArmourEnchantHandler implements IEntityDamageEvent
 	{
 		for (ICustomArmourEnchant enchant : enchants)
 			this.enchants.put(enchant.getSimpleName(), enchant);
+	}
+
+	public void enchantArmour(RunsafeMeta meta, ICustomArmourEnchant enchant)
+	{
+		meta.addLore(ENCHANT_TAG + enchant.getEnchantText());
+	}
+
+	public ICustomArmourEnchant getEnchant(String name)
+	{
+		return enchants.get(name);
+	}
+
+	public Set<String> getEnchants()
+	{
+		return enchants.keySet();
 	}
 
 	@Override
@@ -44,12 +60,10 @@ public class CustomArmourEnchantHandler implements IEntityDamageEvent
 		if (lore == null)
 			return;
 
-		for (String loreString : lore)
+		for (ICustomArmourEnchant enchant : enchants.values())
 		{
-			loreString = ENCHANT_TAG + loreString;
-			if (enchants.containsKey(loreString))
+			if (lore.contains(ENCHANT_TAG + enchant.getEnchantText()))
 			{
-				ICustomArmourEnchant enchant = enchants.get(loreString);
 				if (entityEvent instanceof RunsafeEntityDamageEvent)
 				{
 					if (entityEvent instanceof RunsafeEntityDamageByEntityEvent)
@@ -59,7 +73,6 @@ public class CustomArmourEnchantHandler implements IEntityDamageEvent
 				}
 			}
 		}
-
 	}
 
 	private HashMap<String, ICustomArmourEnchant> enchants = new HashMap<String, ICustomArmourEnchant>(0);

@@ -13,7 +13,7 @@ public class EnchantBow extends PlayerCommand
 	{
 		super(
 			"enchantbow", "Enchants a bow using a magical custom enchant.", "runsafe.flangerorimega.enchant.bows",
-			new EnchantArgument(handler)
+			new EnchantBowArgument(handler)
 		);
 		this.handler = handler;
 	}
