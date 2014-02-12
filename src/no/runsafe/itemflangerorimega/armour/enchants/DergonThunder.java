@@ -1,8 +1,12 @@
 package no.runsafe.itemflangerorimega.armour.enchants;
 
 import no.runsafe.framework.api.ILocation;
+import no.runsafe.framework.api.IWorldEffect;
 import no.runsafe.framework.api.entity.IEntity;
 import no.runsafe.framework.api.entity.ILivingEntity;
+import no.runsafe.framework.minecraft.Item;
+import no.runsafe.framework.minecraft.WorldBlockEffect;
+import no.runsafe.framework.minecraft.WorldBlockEffectType;
 import no.runsafe.framework.minecraft.event.entity.RunsafeEntityDamageByEntityEvent;
 import no.runsafe.itemflangerorimega.armour.CustomArmourEnchant;
 import org.bukkit.util.Vector;
@@ -12,6 +16,11 @@ import java.util.Random;
 
 public class DergonThunder extends CustomArmourEnchant
 {
+	public DergonThunder()
+	{
+		effect = new WorldBlockEffect(WorldBlockEffectType.BLOCK_DUST, Item.Unavailable.StationaryLava);
+	}
+
 	@Override
 	public String getEnchantText()
 	{
@@ -33,6 +42,9 @@ public class DergonThunder extends CustomArmourEnchant
 			List<IEntity> entities = entity.getNearbyEntities(10, 10, 10);
 
 			ILocation entityLocation = entity.getLocation();
+			if (entityLocation != null)
+				entityLocation.playEffect(effect, 0.3F, 100, 50);
+
 			for (IEntity closeEntity : entities)
 			{
 				if (closeEntity instanceof ILivingEntity)
@@ -59,4 +71,5 @@ public class DergonThunder extends CustomArmourEnchant
 	}
 
 	private final Random random = new Random();
+	private final IWorldEffect effect;
 }
