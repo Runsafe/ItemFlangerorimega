@@ -1,6 +1,7 @@
 package no.runsafe.itemflangerorimega.armour;
 
 import no.runsafe.framework.api.entity.ILivingEntity;
+import no.runsafe.framework.api.event.entity.IEntityDamageByEntityEvent;
 import no.runsafe.framework.api.event.entity.IEntityDamageEvent;
 import no.runsafe.framework.minecraft.entity.RunsafeEntity;
 import no.runsafe.framework.minecraft.event.entity.RunsafeEntityDamageByEntityEvent;
@@ -13,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-public class CustomArmourEnchantHandler implements IEntityDamageEvent
+public class CustomArmourEnchantHandler implements IEntityDamageEvent, IEntityDamageByEntityEvent
 {
 	public CustomArmourEnchantHandler(ICustomArmourEnchant[] enchants)
 	{
@@ -37,7 +38,18 @@ public class CustomArmourEnchantHandler implements IEntityDamageEvent
 	}
 
 	@Override
+	public void OnEntityDamageByEntity(RunsafeEntityDamageByEntityEvent event)
+	{
+		checkEnchants(event);
+	}
+
+	@Override
 	public void OnEntityDamage(RunsafeEntityDamageEvent event)
+	{
+		checkEnchants(event);
+	}
+
+	private void checkEnchants(RunsafeEntityEvent event)
 	{
 		RunsafeEntity entity = event.getEntity();
 		if (entity instanceof ILivingEntity)
