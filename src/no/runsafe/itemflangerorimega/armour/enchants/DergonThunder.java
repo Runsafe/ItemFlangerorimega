@@ -40,6 +40,7 @@ public class DergonThunder extends CustomArmourEnchant
 					ILivingEntity livingCloseEntity = (ILivingEntity) closeEntity;
 					livingCloseEntity.strikeWithLightning(true);
 					livingCloseEntity.damage(2D);
+					livingCloseEntity.setFireTicks(20 * 5); // Set them on fire for 5 seconds.
 
 					if (entityLocation != null)
 					{
@@ -47,7 +48,7 @@ public class DergonThunder extends CustomArmourEnchant
 						if (closeEntityLocation != null)
 						{
 							Vector velocity = entityLocation.toVector().subtract(closeEntityLocation.toVector()).normalize();
-							livingCloseEntity.setVelocity(velocity.multiply(10D));
+							livingCloseEntity.setVelocity(velocity.multiply(2D));
 						}
 					}
 				}
