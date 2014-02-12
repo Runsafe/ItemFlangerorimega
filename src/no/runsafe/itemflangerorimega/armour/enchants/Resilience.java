@@ -11,7 +11,7 @@ public class Resilience extends CustomArmourEnchant
 	@Override
 	public String getEnchantText()
 	{
-		return "Resilience";
+		return "Resilience I";
 	}
 
 	@Override
