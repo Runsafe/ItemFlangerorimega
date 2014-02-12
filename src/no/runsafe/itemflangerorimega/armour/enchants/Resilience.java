@@ -38,6 +38,8 @@ public class Resilience extends CustomArmourEnchant
 
 		if (wasPlayerAttacking)
 		{
+			if (event.getEntity() instanceof IPlayer)
+				((IPlayer) event.getEntity()).sendColouredMessage("Resi gear detected, reducing damage by 10%");
 			double damage = event.getDamage();
 			event.setDamage(damage - (damage / 10));
 		}
