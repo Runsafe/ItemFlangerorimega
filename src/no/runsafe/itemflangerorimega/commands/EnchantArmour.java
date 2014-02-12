@@ -55,5 +55,9 @@ public class EnchantArmour extends PlayerCommand
 		armour.add(Item.Combat.Helmet.Diamond);
 		armour.add(Item.Combat.Chestplate.Diamond);
 		armour.add(Item.Combat.Leggings.Diamond);
+		armour.add(Item.Combat.Boots.Chainmail);
+		armour.add(Item.Combat.Helmet.Chainmail);
+		armour.add(Item.Combat.Chestplate.Chainmail);
+		armour.add(Item.Combat.Leggings.Chainmail);
 	}
 }
