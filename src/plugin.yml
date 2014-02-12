@@ -4,5 +4,6 @@ version: 1.0.@BUILD@
 author: Kruithne
 description: Custom item handling
 commands:
-  enchantbow:
-    description: Enchants a bow with some form of wizardry.
+  customenchant:
+    description: Enchants an item with some form of wizardry.
+    aliases: [cenchant]

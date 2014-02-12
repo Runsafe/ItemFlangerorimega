@@ -15,7 +15,7 @@ public class EnchantArmour extends PlayerCommand
 	public EnchantArmour(CustomArmourEnchantHandler handler)
 	{
 		super(
-				"enchantbow", "Enchants a bow using a magical custom enchant.", "runsafe.flangerorimega.enchant.armour",
+				"armour", "Enchants armour using a magical custom enchant.", "runsafe.flangerorimega.enchant.armour",
 				new EnchantArmourArgument(handler)
 		);
 		this.handler = handler;
@@ -29,9 +29,9 @@ public class EnchantArmour extends PlayerCommand
 		if (item != null && armour.contains(item.getItemType()))
 		{
 			handler.enchantArmour(item, handler.getEnchant(enchantType));
-			return "&2Your bow has been enchanted with wizardry.";
+			return "&2The armour has been enchanted!.";
 		}
-		return "&cYou are not holding a bow.";
+		return "&cYou are not holding armour.";
 	}
 
 	private CustomArmourEnchantHandler handler;

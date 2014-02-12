@@ -1,6 +1,7 @@
 package no.runsafe.itemflangerorimega;
 
 import no.runsafe.framework.RunsafePlugin;
+import no.runsafe.framework.api.command.Command;
 import no.runsafe.framework.features.Commands;
 import no.runsafe.framework.features.Events;
 import no.runsafe.itemflangerorimega.armour.CustomArmourEnchantHandler;
@@ -32,5 +33,11 @@ public class Plugin extends RunsafePlugin
 		// Commands
 		addComponent(EnchantBow.class);
 		addComponent(EnchantArmour.class);
+
+		Command customEnchantCommand = new Command("customenchant", "Enchant an item with a custom enchant", null);
+		addComponent(customEnchantCommand);
+
+		customEnchantCommand.addSubCommand(getInstance(EnchantBow.class));
+		customEnchantCommand.addSubCommand(getInstance(EnchantArmour.class));
 	}
 }
