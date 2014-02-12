@@ -3,6 +3,8 @@ package no.runsafe.itemflangerorimega;
 import no.runsafe.framework.RunsafePlugin;
 import no.runsafe.framework.features.Commands;
 import no.runsafe.framework.features.Events;
+import no.runsafe.itemflangerorimega.armour.CustomArmourEnchantHandler;
+import no.runsafe.itemflangerorimega.armour.enchants.Resilience;
 import no.runsafe.itemflangerorimega.bows.CustomBowEnchantHandler;
 import no.runsafe.itemflangerorimega.bows.enchants.ExplosiveCharge;
 import no.runsafe.itemflangerorimega.commands.EnchantBow;
@@ -17,12 +19,16 @@ public class Plugin extends RunsafePlugin
 		addComponent(Commands.class);
 
 		// Bow Enchants
-		this.addComponent(ExplosiveCharge.class);
+		addComponent(ExplosiveCharge.class);
+
+		// Armour enchants
+		addComponent(Resilience.class);
 
 		// Handlers
-		this.addComponent(CustomBowEnchantHandler.class);
+		addComponent(CustomBowEnchantHandler.class);
+		addComponent(CustomArmourEnchantHandler.class);
 
 		// Commands
-		this.addComponent(EnchantBow.class);
+		addComponent(EnchantBow.class);
 	}
 }
