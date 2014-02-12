@@ -48,7 +48,7 @@ public class DergonThunder extends CustomArmourEnchant
 						if (closeEntityLocation != null)
 						{
 							Vector velocity = entityLocation.toVector().add(closeEntityLocation.toVector()).normalize();
-							livingCloseEntity.setVelocity(velocity.multiply(2D));
+							livingCloseEntity.setVelocity(velocity.multiply(6D));
 						}
 					}
 				}
