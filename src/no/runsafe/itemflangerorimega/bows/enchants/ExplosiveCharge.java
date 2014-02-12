@@ -2,7 +2,7 @@ package no.runsafe.itemflangerorimega.bows.enchants;
 
 import no.runsafe.framework.api.ILocation;
 import no.runsafe.framework.minecraft.entity.RunsafeProjectile;
-import no.runsafe.itemflangerorimega.CustomBowEnchant;
+import no.runsafe.itemflangerorimega.bows.CustomBowEnchant;
 
 public class ExplosiveCharge extends CustomBowEnchant
 {

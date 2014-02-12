@@ -1,4 +1,4 @@
-package no.runsafe.itemflangerorimega;
+package no.runsafe.itemflangerorimega.bows;
 
 import no.runsafe.framework.api.block.IBlock;
 import no.runsafe.framework.minecraft.entity.RunsafeEntity;
