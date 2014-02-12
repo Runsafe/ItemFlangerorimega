@@ -26,12 +26,21 @@ public class EnchantArmour extends PlayerCommand
 	{
 		String enchantType = parameters.get("enchant");
 		RunsafeMeta item = executor.getItemInHand();
-		if (item != null && armour.contains(item.getItemType()))
+		if (item != null && validItem(item))
 		{
 			handler.enchantArmour(item, handler.getEnchant(enchantType));
 			return "&2The armour has been enchanted!.";
 		}
 		return "&cYou are not holding armour.";
+	}
+
+	private boolean validItem(RunsafeMeta item)
+	{
+		for (Item checkItem : armour)
+			if (item.is(checkItem))
+				return true;
+
+		return false;
 	}
 
 	private CustomArmourEnchantHandler handler;
