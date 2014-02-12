@@ -15,7 +15,7 @@ public class EnchantArmour extends PlayerCommand
 	public EnchantArmour(CustomArmourEnchantHandler handler)
 	{
 		super(
-				"enchantbow", "Enchants a bow using a magical custom enchant.", "runsafe.flangerorimega.enchant.bows",
+				"enchantbow", "Enchants a bow using a magical custom enchant.", "runsafe.flangerorimega.enchant.armour",
 				new EnchantArmourArgument(handler)
 		);
 		this.handler = handler;
