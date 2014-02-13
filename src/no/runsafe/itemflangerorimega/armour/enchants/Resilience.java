@@ -4,6 +4,7 @@ import no.runsafe.framework.api.player.IPlayer;
 import no.runsafe.framework.minecraft.entity.RunsafeEntity;
 import no.runsafe.framework.minecraft.entity.RunsafeProjectile;
 import no.runsafe.framework.minecraft.event.entity.RunsafeEntityDamageByEntityEvent;
+import no.runsafe.framework.minecraft.item.meta.RunsafeMeta;
 import no.runsafe.itemflangerorimega.armour.CustomArmourEnchant;
 
 public class Resilience extends CustomArmourEnchant
@@ -21,7 +22,7 @@ public class Resilience extends CustomArmourEnchant
 	}
 
 	@Override
-	public void entityDamageByEntityEvent(RunsafeEntityDamageByEntityEvent event)
+	public void entityDamageByEntityEvent(RunsafeMeta item, RunsafeEntityDamageByEntityEvent event)
 	{
 		boolean wasPlayerAttacking = false;
 		RunsafeEntity attacker = event.getDamageActor();

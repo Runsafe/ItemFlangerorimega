@@ -8,6 +8,7 @@ import no.runsafe.framework.minecraft.Item;
 import no.runsafe.framework.minecraft.WorldBlockEffect;
 import no.runsafe.framework.minecraft.WorldBlockEffectType;
 import no.runsafe.framework.minecraft.event.entity.RunsafeEntityDamageByEntityEvent;
+import no.runsafe.framework.minecraft.item.meta.RunsafeMeta;
 import no.runsafe.itemflangerorimega.armour.CustomArmourEnchant;
 import org.bukkit.util.Vector;
 
@@ -34,7 +35,7 @@ public class DergonThunder extends CustomArmourEnchant
 	}
 
 	@Override
-	public void entityDamageByEntityEvent(RunsafeEntityDamageByEntityEvent event)
+	public void entityDamageByEntityEvent(RunsafeMeta item, RunsafeEntityDamageByEntityEvent event)
 	{
 		if (random.nextInt(100) <= 80)
 		{

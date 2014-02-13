@@ -79,9 +79,9 @@ public class CustomArmourEnchantHandler implements IEntityDamageEvent, IEntityDa
 				if (entityEvent instanceof RunsafeEntityDamageEvent)
 				{
 					if (entityEvent instanceof RunsafeEntityDamageByEntityEvent)
-						enchant.entityDamageByEntityEvent((RunsafeEntityDamageByEntityEvent) entityEvent);
+						enchant.entityDamageByEntityEvent(item, (RunsafeEntityDamageByEntityEvent) entityEvent);
 					else
-						enchant.entityDamageEvent((RunsafeEntityDamageEvent) entityEvent);
+						enchant.entityDamageEvent(item, (RunsafeEntityDamageEvent) entityEvent);
 				}
 			}
 		}
