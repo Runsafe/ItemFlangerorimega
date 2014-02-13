@@ -1,6 +1,5 @@
 package no.runsafe.itemflangerorimega.armour.enchants;
 
-import no.runsafe.framework.api.IServer;
 import no.runsafe.framework.api.player.IPlayer;
 import no.runsafe.framework.minecraft.entity.RunsafeEntity;
 import no.runsafe.framework.minecraft.entity.RunsafeProjectile;
@@ -12,11 +11,6 @@ import java.util.Random;
 
 public class Resilience extends CustomArmourEnchant
 {
-	public Resilience(IServer server)
-	{
-		this.server = server;
-	}
-
 	@Override
 	public String getEnchantText()
 	{
@@ -32,15 +26,8 @@ public class Resilience extends CustomArmourEnchant
 	@Override
 	public void entityDamageByEntityEvent(RunsafeMeta item, RunsafeEntityDamageByEntityEvent event)
 	{
-		float ran = random.nextFloat();
-		server.broadcastMessage("F: " + ran);
 		if (random.nextFloat() < 0.8F)
-		{
-			server.broadcastMessage("SCOPE ENTERED");
-			server.broadcastMessage("CD: " + item.getDurability());
-			item.setDurability((short) (item.getDurability() + 1));
-			server.broadcastMessage("AD: " + item.getDurability());
-		}
+			item.setDurability((short) (item.getDurability() - 1));
 
 		boolean wasPlayerAttacking = false;
 		RunsafeEntity attacker = event.getDamageActor();
@@ -63,5 +50,4 @@ public class Resilience extends CustomArmourEnchant
 	}
 
 	private final Random random = new Random();
-	private final IServer server;
 }
