@@ -7,6 +7,8 @@ import no.runsafe.framework.minecraft.event.entity.RunsafeEntityDamageByEntityEv
 import no.runsafe.framework.minecraft.item.meta.RunsafeMeta;
 import no.runsafe.itemflangerorimega.armour.CustomArmourEnchant;
 
+import java.util.Random;
+
 public class Resilience extends CustomArmourEnchant
 {
 	@Override
@@ -24,6 +26,9 @@ public class Resilience extends CustomArmourEnchant
 	@Override
 	public void entityDamageByEntityEvent(RunsafeMeta item, RunsafeEntityDamageByEntityEvent event)
 	{
+		if (random.nextFloat() < 0.8)
+			item.setDurability((short) (item.getDurability() + 1));
+
 		boolean wasPlayerAttacking = false;
 		RunsafeEntity attacker = event.getDamageActor();
 		if (attacker instanceof IPlayer)
@@ -43,4 +48,6 @@ public class Resilience extends CustomArmourEnchant
 			event.setDamage(damage - (damage / 10));
 		}
 	}
+
+	private final Random random = new Random();
 }
