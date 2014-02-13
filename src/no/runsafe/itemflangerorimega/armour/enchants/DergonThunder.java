@@ -25,7 +25,7 @@ public class DergonThunder extends CustomArmourEnchant
 	@Override
 	public String getEnchantText()
 	{
-		return "Dergon Thunder";
+		return "Dergon Thunder I";
 	}
 
 	@Override
