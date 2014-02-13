@@ -37,7 +37,7 @@ public class DergonThunder extends CustomArmourEnchant
 	@Override
 	public void entityDamageByEntityEvent(RunsafeMeta item, RunsafeEntityDamageByEntityEvent event)
 	{
-		if (random.nextInt(100) <= 80)
+		if (random.nextInt(100) <= 3)
 		{
 			ILivingEntity entity = (ILivingEntity) event.getEntity();
 			List<IEntity> entities = entity.getNearbyEntities(10, 10, 10);
