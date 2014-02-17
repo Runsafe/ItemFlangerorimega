@@ -9,6 +9,7 @@ import no.runsafe.itemflangerorimega.armour.enchants.DergonThunder;
 import no.runsafe.itemflangerorimega.armour.enchants.Resilience;
 import no.runsafe.itemflangerorimega.bows.CustomBowEnchantHandler;
 import no.runsafe.itemflangerorimega.bows.enchants.ExplosiveCharge;
+import no.runsafe.itemflangerorimega.bows.enchants.FireworkTest;
 import no.runsafe.itemflangerorimega.commands.EnchantArmour;
 import no.runsafe.itemflangerorimega.commands.EnchantBow;
 
@@ -23,6 +24,7 @@ public class Plugin extends RunsafePlugin
 
 		// Bow Enchants
 		addComponent(ExplosiveCharge.class);
+		addComponent(FireworkTest.class);
 
 		// Armour enchants
 		addComponent(Resilience.class);
