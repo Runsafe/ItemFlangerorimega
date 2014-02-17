@@ -9,7 +9,7 @@ public class FireworkTest extends CustomBowEnchant
 	@Override
 	public boolean onArrowShoot(ILivingEntity entity)
 	{
-		Firework.LargeBall().Flicker().Colour((byte) 147, (byte) 229, (byte) 127).Fire(entity.getLocation());
+		Firework.LargeBall().Flicker().Random().Fire(entity.getLocation());
 		return false;
 	}
 
