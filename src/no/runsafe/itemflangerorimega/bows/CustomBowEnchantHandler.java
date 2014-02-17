@@ -98,6 +98,7 @@ public class CustomBowEnchantHandler implements IProjectileHitEvent, IEntityShoo
 		if (!trackedArrows.containsKey(entityID))
 		{
 			RunsafeEntity shootingEntity = event.getEntity();
+
 			RunsafeMeta item = null;
 			if (shootingEntity instanceof IPlayer)
 				item = ((IPlayer) shootingEntity).getItemInHand();
@@ -108,8 +109,17 @@ public class CustomBowEnchantHandler implements IProjectileHitEvent, IEntityShoo
 			{
 				List<ICustomBowEnchant> bowEnchants = new ArrayList<ICustomBowEnchant>();
 				for (ICustomBowEnchant enchant : enchants)
-					if (this.hasEnchant(item, enchant))
-						bowEnchants.add(enchant);
+				{
+					if (hasEnchant(item, enchant))
+					{
+						boolean allowShoot = enchant.onArrowShoot((ILivingEntity) shootingEntity);
+
+						if (allowShoot)
+							bowEnchants.add(enchant);
+						else
+							event.getProjectile().remove();
+					}
+				}
 
 				if (!bowEnchants.isEmpty())
 					trackedArrows.put(entityID, bowEnchants);
