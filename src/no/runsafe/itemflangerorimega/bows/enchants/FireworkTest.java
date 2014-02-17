@@ -27,7 +27,7 @@ public class FireworkTest extends CustomBowEnchant
 			FireworkEffect effect = FireworkEffect.builder().with(FireworkEffect.Type.BALL_LARGE).withColor(Color.OLIVE).withFade(Color.RED).flicker(true).trail(true).build();
 
 			meta.addEffect(effect);
-			meta.setPower(5);
+			meta.setPower(3);
 			firework.setFireworkMeta(meta);
 		}
 
