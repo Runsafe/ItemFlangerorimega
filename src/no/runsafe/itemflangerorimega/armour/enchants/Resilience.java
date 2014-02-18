@@ -27,7 +27,7 @@ public class Resilience extends CustomArmourEnchant
 	public void entityDamageByEntityEvent(RunsafeMeta item, RunsafeEntityDamageByEntityEvent event)
 	{
 		if (random.nextFloat() < 0.8F)
-			item.setDurability((short) (item.getDurability() - 1));
+			item.setDurability((short) (item.getDurability() - 5));
 
 		boolean wasPlayerAttacking = false;
 		RunsafeEntity attacker = event.getDamageActor();
