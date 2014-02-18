@@ -49,9 +49,9 @@ public class Resilience extends CustomArmourEnchant
 			double damage = event.getDamage();
 			player.sendColouredMessage("Item: " + item.getDisplayName());
 			player.sendColouredMessage("Orig damage: " + damage);
-			event.setDamage(damage - (damage / 22));
+			event.setDamage(damage - (damage / 2));
 
-			player.sendColouredMessage("Reduced damage: " + (damage - (damage / 22)));
+			player.sendColouredMessage("Reduced damage: " + (damage - (damage / 2)));
 		}
 	}
 
