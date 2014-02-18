@@ -45,7 +45,7 @@ public class Resilience extends CustomArmourEnchant
 		if (wasPlayerAttacking)
 		{
 			double damage = event.getDamage();
-			event.setDamage(damage - (damage / 10));
+			event.setDamage(damage - (damage / 22));
 		}
 	}
 
