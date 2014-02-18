@@ -46,11 +46,6 @@ public class Resilience extends CustomArmourEnchant
 		{
 			double damage = event.getDamage();
 			event.setDamage(damage - (damage / 10));
-
-			if (event.getEntity() instanceof IPlayer)
-			{
-				((IPlayer) event.getEntity()).sendColouredMessage("Damage reduction from " + item.getDisplayName());
-			}
 		}
 	}
 
