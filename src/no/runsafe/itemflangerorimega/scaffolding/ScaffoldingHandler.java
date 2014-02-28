@@ -25,6 +25,7 @@ public class ScaffoldingHandler implements IBlockPlace, IBlockBreak
 		if (isItem(item))
 		{
 			block.set(Item.Redstone.Piston.Box);
+			player.getInventory().removeExact(item, 1);
 			return false;
 		}
 		return true;
@@ -72,7 +73,7 @@ public class ScaffoldingHandler implements IBlockPlace, IBlockBreak
 			return false;
 
 		String itemName = item.getDisplayName();
-		return itemName != null && itemName.equals("§Scaffolding");
+		return itemName != null && itemName.equals("§rScaffolding");
 	}
 
 	public static RunsafeMeta getItem(int amount)
@@ -80,7 +81,7 @@ public class ScaffoldingHandler implements IBlockPlace, IBlockBreak
 		if (item == null)
 		{
 			item = Item.Decoration.Fence.getItem();
-			item.setDisplayName("§Scaffolding");
+			item.setDisplayName("§rScaffolding");
 		}
 		item.setAmount(amount);
 		return item;
