@@ -28,7 +28,6 @@ public class ScaffoldingHandler implements IBlockPlace, IBlockBreak
 		RunsafeMeta item = player.getItemInHand();
 		if (isItem(item) && control.playerCanBuildHere(player, block.getLocation()))
 		{
-			player.getInventory().removeExact(item, 1);
 			player.updateInventory();
 			scheduler.startSyncTask(new Runnable()
 			{
