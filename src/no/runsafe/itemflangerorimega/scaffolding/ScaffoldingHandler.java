@@ -1,6 +1,7 @@
 package no.runsafe.itemflangerorimega.scaffolding;
 
 import no.runsafe.framework.api.ILocation;
+import no.runsafe.framework.api.IScheduler;
 import no.runsafe.framework.api.IWorldEffect;
 import no.runsafe.framework.api.block.IBlock;
 import no.runsafe.framework.api.event.block.IBlockBreak;
@@ -13,20 +14,28 @@ import no.runsafe.framework.minecraft.item.meta.RunsafeMeta;
 
 public class ScaffoldingHandler implements IBlockPlace, IBlockBreak
 {
-	public ScaffoldingHandler()
+	public ScaffoldingHandler(IScheduler scheduler)
 	{
+		this.scheduler = scheduler;
 		effect = new WorldBlockEffect(WorldBlockEffectType.BLOCK_DUST, Item.Decoration.Fence);
 	}
 
 	@Override
-	public boolean OnBlockPlace(IPlayer player, IBlock block)
+	public boolean OnBlockPlace(IPlayer player, final IBlock block)
 	{
 		RunsafeMeta item = player.getItemInHand();
 		if (isItem(item))
 		{
-			block.set(Item.Redstone.Piston.Box);
 			player.getInventory().removeExact(item, 1);
 			player.updateInventory();
+			scheduler.runNow(new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					block.getLocation().getBlock().set(Item.Redstone.Piston.Box);
+				}
+			});
 		}
 		return true;
 	}
@@ -89,4 +98,5 @@ public class ScaffoldingHandler implements IBlockPlace, IBlockBreak
 
 	private static RunsafeMeta item;
 	private final IWorldEffect effect;
+	private final IScheduler scheduler;
 }
