@@ -11,12 +11,14 @@ import no.runsafe.framework.minecraft.Item;
 import no.runsafe.framework.minecraft.WorldBlockEffect;
 import no.runsafe.framework.minecraft.WorldBlockEffectType;
 import no.runsafe.framework.minecraft.item.meta.RunsafeMeta;
+import no.runsafe.worldguardbridge.IRegionControl;
 
 public class ScaffoldingHandler implements IBlockPlace, IBlockBreak
 {
-	public ScaffoldingHandler(IScheduler scheduler)
+	public ScaffoldingHandler(IScheduler scheduler, IRegionControl control)
 	{
 		this.scheduler = scheduler;
+		this.control = control;
 		effect = new WorldBlockEffect(WorldBlockEffectType.BLOCK_DUST, Item.Decoration.Fence);
 	}
 
@@ -24,7 +26,7 @@ public class ScaffoldingHandler implements IBlockPlace, IBlockBreak
 	public boolean OnBlockPlace(IPlayer player, final IBlock block)
 	{
 		RunsafeMeta item = player.getItemInHand();
-		if (isItem(item))
+		if (isItem(item) && control.playerCanBuildHere(player, block.getLocation()))
 		{
 			player.getInventory().removeExact(item, 1);
 			player.updateInventory();
@@ -99,4 +101,5 @@ public class ScaffoldingHandler implements IBlockPlace, IBlockBreak
 	private static RunsafeMeta item;
 	private final IWorldEffect effect;
 	private final IScheduler scheduler;
+	private final IRegionControl control;
 }
