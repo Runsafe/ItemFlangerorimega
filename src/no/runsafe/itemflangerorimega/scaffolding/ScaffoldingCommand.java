@@ -1,20 +1,20 @@
-package no.runsafe.itemflangerorimega.commands;
+package no.runsafe.itemflangerorimega.scaffolding;
 
 import no.runsafe.framework.api.command.argument.IArgumentList;
 import no.runsafe.framework.api.command.player.PlayerCommand;
 import no.runsafe.framework.api.player.IPlayer;
-import no.runsafe.framework.minecraft.Item;
 
-public class BoxItem extends PlayerCommand
+public class ScaffoldingCommand extends PlayerCommand
 {
-	public BoxItem()
+	public ScaffoldingCommand()
 	{
-		super("boxitem", "Spawn a derp box", "runsafe.items.box");
+		super("scaffolding", "Spawn a stack of scaffolding", "runsafe.items.scaffolding");
 	}
+
 	@Override
 	public String OnExecute(IPlayer executor, IArgumentList parameters)
 	{
-		executor.getLocation().getBlock().set(Item.Redstone.Piston.Box);
+		executor.give(ScaffoldingHandler.getItem(64));
 		return null;
 	}
 }

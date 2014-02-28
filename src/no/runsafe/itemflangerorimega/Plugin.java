@@ -10,9 +10,10 @@ import no.runsafe.itemflangerorimega.armour.enchants.Resilience;
 import no.runsafe.itemflangerorimega.bows.CustomBowEnchantHandler;
 import no.runsafe.itemflangerorimega.bows.enchants.ExplosiveCharge;
 import no.runsafe.itemflangerorimega.bows.enchants.FireworkTest;
-import no.runsafe.itemflangerorimega.commands.BoxItem;
 import no.runsafe.itemflangerorimega.commands.EnchantArmour;
 import no.runsafe.itemflangerorimega.commands.EnchantBow;
+import no.runsafe.itemflangerorimega.scaffolding.ScaffoldingCommand;
+import no.runsafe.itemflangerorimega.scaffolding.ScaffoldingHandler;
 
 public class Plugin extends RunsafePlugin
 {
@@ -41,6 +42,7 @@ public class Plugin extends RunsafePlugin
 		customEnchantCommand.addSubCommand(getInstance(EnchantBow.class));
 		customEnchantCommand.addSubCommand(getInstance(EnchantArmour.class));
 
-		addComponent(BoxItem.class);
+		addComponent(ScaffoldingHandler.class);
+		addComponent(ScaffoldingCommand.class);
 	}
 }
