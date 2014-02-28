@@ -80,19 +80,19 @@ public class ScaffoldingHandler implements IBlockPlace, IBlockBreak
 
 	private boolean isItem(RunsafeMeta item)
 	{
-		if (item == null || !item.is(Item.Decoration.Fence))
+		if (item == null || !item.is(Item.Redstone.Device.NoteBlock))
 			return false;
 
 		String itemName = item.getDisplayName();
-		return itemName != null && itemName.equals("§rScaffolding");
+		return itemName != null && itemName.equals("§rCrate of Scaffolding");
 	}
 
 	public static RunsafeMeta getItem(int amount)
 	{
 		if (item == null)
 		{
-			item = Item.Decoration.Fence.getItem();
-			item.setDisplayName("§rScaffolding");
+			item = Item.Redstone.Device.NoteBlock.getItem();
+			item.setDisplayName("§rCrate of Scaffolding");
 		}
 		item.setAmount(amount);
 		return item;
