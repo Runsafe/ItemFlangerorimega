@@ -6,14 +6,16 @@ import no.runsafe.framework.api.IWorldEffect;
 import no.runsafe.framework.api.block.IBlock;
 import no.runsafe.framework.api.event.block.IBlockBreak;
 import no.runsafe.framework.api.event.block.IBlockPlace;
+import no.runsafe.framework.api.event.entity.IEntityExplode;
 import no.runsafe.framework.api.player.IPlayer;
 import no.runsafe.framework.minecraft.Item;
 import no.runsafe.framework.minecraft.WorldBlockEffect;
 import no.runsafe.framework.minecraft.WorldBlockEffectType;
+import no.runsafe.framework.minecraft.event.entity.RunsafeEntityExplodeEvent;
 import no.runsafe.framework.minecraft.item.meta.RunsafeMeta;
 import no.runsafe.worldguardbridge.IRegionControl;
 
-public class ScaffoldingHandler implements IBlockPlace, IBlockBreak
+public class ScaffoldingHandler implements IBlockPlace, IBlockBreak, IEntityExplode
 {
 	public ScaffoldingHandler(IScheduler scheduler, IRegionControl control)
 	{
@@ -95,6 +97,19 @@ public class ScaffoldingHandler implements IBlockPlace, IBlockBreak
 		}
 		item.setAmount(amount);
 		return item;
+	}
+
+	@Override
+	public void OnEntityExplode(RunsafeEntityExplodeEvent event)
+	{
+		for (IBlock block : event.getBlockList())
+		{
+			if (block.is(Item.Redstone.Piston.Box))
+			{
+				event.setYield(0);
+				return;
+			}
+		}
 	}
 
 	private static RunsafeMeta item;
