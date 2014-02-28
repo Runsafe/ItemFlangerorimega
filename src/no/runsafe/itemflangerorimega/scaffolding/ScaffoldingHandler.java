@@ -24,7 +24,7 @@ public class ScaffoldingHandler implements IBlockPlace, IBlockBreak
 		RunsafeMeta item = player.getItemInHand();
 		if (isItem(item))
 		{
-			block.set(Item.Redstone.Piston.Box);
+			block.getLocation().getBlock().set(Item.Redstone.Piston.Box);
 			player.getInventory().removeExact(item, 1);
 			return false;
 		}
