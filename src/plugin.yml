@@ -7,3 +7,5 @@ commands:
   customenchant:
     description: Enchants an item with some form of wizardry.
     aliases: [cenchant]
+  boxitem:
+    description: Derpy piston spawning
