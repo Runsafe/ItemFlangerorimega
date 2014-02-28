@@ -2,6 +2,7 @@ name: ItemFlangerorimega
 main: no.runsafe.itemflangerorimega.Plugin
 version: 1.0.@BUILD@
 author: Kruithne
+depend: [RunsafeWorldGuardBridge]
 description: Custom item handling
 commands:
   customenchant:
