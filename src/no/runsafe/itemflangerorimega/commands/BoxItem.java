@@ -14,7 +14,7 @@ public class BoxItem extends PlayerCommand
 	@Override
 	public String OnExecute(IPlayer executor, IArgumentList parameters)
 	{
-		executor.give(Item.Redstone.Piston.Box.getItem());
+		executor.getLocation().getBlock().set(Item.Redstone.Piston.Box);
 		return null;
 	}
 }
