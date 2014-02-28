@@ -28,14 +28,14 @@ public class ScaffoldingHandler implements IBlockPlace, IBlockBreak
 		{
 			player.getInventory().removeExact(item, 1);
 			player.updateInventory();
-			scheduler.runNow(new Runnable()
+			scheduler.startSyncTask(new Runnable()
 			{
 				@Override
 				public void run()
 				{
 					block.getLocation().getBlock().set(Item.Redstone.Piston.Box);
 				}
-			});
+			}, 1L);
 		}
 		return true;
 	}
