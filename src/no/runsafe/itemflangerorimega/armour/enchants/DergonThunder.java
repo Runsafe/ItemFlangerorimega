@@ -1,6 +1,7 @@
 package no.runsafe.itemflangerorimega.armour.enchants;
 
 import no.runsafe.framework.api.ILocation;
+import no.runsafe.framework.api.IScheduler;
 import no.runsafe.framework.api.IWorldEffect;
 import no.runsafe.framework.api.entity.IEntity;
 import no.runsafe.framework.api.entity.ILivingEntity;
@@ -17,8 +18,9 @@ import java.util.Random;
 
 public class DergonThunder extends CustomArmourEnchant
 {
-	public DergonThunder()
+	public DergonThunder(IScheduler scheduler)
 	{
+		this.scheduler = scheduler;
 		effect = new WorldBlockEffect(WorldBlockEffectType.BLOCK_DUST, Item.Unavailable.StationaryLava);
 	}
 
@@ -35,42 +37,53 @@ public class DergonThunder extends CustomArmourEnchant
 	}
 
 	@Override
-	public void entityDamageByEntityEvent(RunsafeMeta item, RunsafeEntityDamageByEntityEvent event)
+	public void entityDamageByEntityEvent(RunsafeMeta item, final RunsafeEntityDamageByEntityEvent event)
 	{
 		if (random.nextInt(100) <= 3)
 		{
-			ILivingEntity entity = (ILivingEntity) event.getEntity();
-			List<IEntity> entities = entity.getNearbyEntities(10, 10, 10);
-
-			ILocation entityLocation = entity.getLocation();
-			if (entityLocation != null)
-				entityLocation.playEffect(effect, 0.3F, 100, 50);
-
-			for (IEntity closeEntity : entities)
+			scheduler.startSyncTask(new Runnable()
 			{
-				if (closeEntity instanceof ILivingEntity)
+				@Override
+				public void run()
 				{
-					ILivingEntity livingCloseEntity = (ILivingEntity) closeEntity;
-					livingCloseEntity.strikeWithLightning(true);
-					livingCloseEntity.damage(2D);
-					livingCloseEntity.setFireTicks(20 * 5); // Set them on fire for 5 seconds.
+					if (event.isCancelled())
+						return;
 
+					ILivingEntity entity = (ILivingEntity) event.getEntity();
+					List<IEntity> entities = entity.getNearbyEntities(10, 10, 10);
+
+					ILocation entityLocation = entity.getLocation();
 					if (entityLocation != null)
+						entityLocation.playEffect(effect, 0.3F, 100, 50);
+
+					for (IEntity closeEntity : entities)
 					{
-						ILocation closeEntityLocation = livingCloseEntity.getLocation();
-						if (closeEntityLocation != null)
+						if (closeEntity instanceof ILivingEntity)
 						{
-							Vector velocity = entityLocation.toVector().add(closeEntityLocation.toVector()).normalize();
-							livingCloseEntity.setVelocity(velocity.multiply(6D));
+							ILivingEntity livingCloseEntity = (ILivingEntity) closeEntity;
+							livingCloseEntity.strikeWithLightning(true);
+							livingCloseEntity.damage(2D);
+							livingCloseEntity.setFireTicks(20 * 5); // Set them on fire for 5 seconds.
+
+							if (entityLocation != null)
+							{
+								ILocation closeEntityLocation = livingCloseEntity.getLocation();
+								if (closeEntityLocation != null)
+								{
+									Vector velocity = entityLocation.toVector().add(closeEntityLocation.toVector()).normalize();
+									livingCloseEntity.setVelocity(velocity.multiply(6D));
+								}
+							}
 						}
 					}
-				}
-			}
 
-			entity.setHealth(entity.getMaxHealth()); // Heal to full.
+					entity.setHealth(entity.getMaxHealth()); // Heal to full.
+				}
+			}, 10L);
 		}
 	}
 
 	private final Random random = new Random();
 	private final IWorldEffect effect;
+	private final IScheduler scheduler;
 }
