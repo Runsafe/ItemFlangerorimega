@@ -23,5 +23,6 @@ public class ExplosiveCharge extends CustomBowEnchant
 	{
 		ILocation loc = projectile.getLocation();
 		loc.getWorld().createExplosion(loc, 3.0F, true, true);
+		projectile.remove();
 	}
 }
