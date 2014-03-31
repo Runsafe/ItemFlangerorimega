@@ -1,6 +1,7 @@
 package no.runsafe.itemflangerorimega.tools.enchants;
 
 import no.runsafe.framework.api.block.IBlock;
+import no.runsafe.framework.api.log.IDebug;
 import no.runsafe.framework.minecraft.Item;
 import no.runsafe.framework.minecraft.item.meta.RunsafeMeta;
 import no.runsafe.itemflangerorimega.tools.CustomToolEnchant;
@@ -12,6 +13,11 @@ import java.util.Random;
 
 public class SaplingGarner extends CustomToolEnchant
 {
+	public SaplingGarner(IDebug debug)
+	{
+		this.debug = debug;
+	}
+
 	@Override
 	public String getEnchantText()
 	{
@@ -28,14 +34,17 @@ public class SaplingGarner extends CustomToolEnchant
 	public void onBlockBreak(IBlock block)
 	{
 		Item blockMat = block.getMaterial();
+		debug.debugFine("Block break event detected: " + blockMat.getName());
 		if (saplingMap.containsKey(blockMat))
 		{
+			debug.debugFine("Leaf block broken!");
 			RunsafeMeta dropItem = saplingMap.get(blockMat).getItem();
 			dropItem.setAmount(1);
 			block.getWorld().dropItem(block.getLocation(), dropItem);
 		}
 	}
 
+	private final IDebug debug;
 	private final Random random = new Random();
 	private static final Map<Item, Item> saplingMap;
 
