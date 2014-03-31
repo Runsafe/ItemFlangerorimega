@@ -3,7 +3,6 @@ package no.runsafe.itemflangerorimega.commands;
 import no.runsafe.framework.api.command.argument.IArgumentList;
 import no.runsafe.framework.api.command.player.PlayerCommand;
 import no.runsafe.framework.api.player.IPlayer;
-import no.runsafe.framework.minecraft.Item;
 import no.runsafe.framework.minecraft.item.meta.RunsafeMeta;
 import no.runsafe.itemflangerorimega.tools.CustomToolEnchantHandler;
 
@@ -23,12 +22,12 @@ public class EnchantTool extends PlayerCommand
 	{
 		String enchantType = parameters.get("enchant");
 		RunsafeMeta item = executor.getItemInHand();
-		if (item != null && item.is(Item.Combat.Bow))
+		if (item != null)
 		{
 			handler.enchantTool(item, handler.getEnchant(enchantType));
-			return "&2Your bow has been enchanted with wizardry.";
+			return "&2Your item has been enchanted with wizardry.";
 		}
-		return "&cYou are not holding a bow.";
+		return "&cYou are not holding anything.";
 	}
 
 	private CustomToolEnchantHandler handler;
