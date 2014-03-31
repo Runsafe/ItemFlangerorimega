@@ -28,7 +28,7 @@ public class SaplingGarner extends CustomToolEnchant
 	public void onBlockBreak(IBlock block)
 	{
 		Item blockMat = block.getMaterial();
-		if (saplingMap.containsKey(blockMat) && random.nextFloat() <= 0.4)
+		if (saplingMap.containsKey(blockMat))
 		{
 			RunsafeMeta dropItem = saplingMap.get(blockMat).getItem();
 			dropItem.setAmount(1);
