@@ -12,8 +12,11 @@ import no.runsafe.itemflangerorimega.bows.enchants.ExplosiveCharge;
 import no.runsafe.itemflangerorimega.bows.enchants.FireworkTest;
 import no.runsafe.itemflangerorimega.commands.EnchantArmour;
 import no.runsafe.itemflangerorimega.commands.EnchantBow;
+import no.runsafe.itemflangerorimega.commands.EnchantTool;
 import no.runsafe.itemflangerorimega.scaffolding.ScaffoldingCommand;
 import no.runsafe.itemflangerorimega.scaffolding.ScaffoldingHandler;
+import no.runsafe.itemflangerorimega.tools.CustomToolEnchantHandler;
+import no.runsafe.itemflangerorimega.tools.enchants.SaplingGarner;
 
 public class Plugin extends RunsafePlugin
 {
@@ -32,15 +35,20 @@ public class Plugin extends RunsafePlugin
 		addComponent(Resilience.class);
 		addComponent(DergonThunder.class);
 
+		// Tool Enchants
+		addComponent(SaplingGarner.class);
+
 		// Handlers
 		addComponent(CustomBowEnchantHandler.class);
 		addComponent(CustomArmourEnchantHandler.class);
+		addComponent(CustomToolEnchantHandler.class);
 
 		Command customEnchantCommand = new Command("customenchant", "Enchant an item with a custom enchant", null);
 		addComponent(customEnchantCommand);
 
 		customEnchantCommand.addSubCommand(getInstance(EnchantBow.class));
 		customEnchantCommand.addSubCommand(getInstance(EnchantArmour.class));
+		customEnchantCommand.addSubCommand(getInstance(EnchantTool.class));
 
 		addComponent(ScaffoldingHandler.class);
 		addComponent(ScaffoldingCommand.class);
