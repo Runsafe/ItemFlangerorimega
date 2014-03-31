@@ -42,12 +42,12 @@ public class SaplingGarner extends CustomToolEnchant
 	static
 	{
 		Map<Item, Item> map = new HashMap<Item, Item>();
-		map.put(Item.Decoration.Sapling.Oak, Item.BuildingBlock.Wood.Oak);
-		map.put(Item.Decoration.Sapling.Spruce, Item.BuildingBlock.Wood.Spruce);
-		map.put(Item.Decoration.Sapling.Jungle, Item.BuildingBlock.Wood.Jungle);
-		map.put(Item.Decoration.Sapling.DarkOak, Item.BuildingBlock.Wood.DarkOak);
-		map.put(Item.Decoration.Sapling.Birch, Item.BuildingBlock.Wood.Birch);
-		map.put(Item.Decoration.Sapling.Acacia, Item.BuildingBlock.Wood.Acacia);
+		map.put(Item.Decoration.Leaves.Oak, Item.Decoration.Sapling.Oak);
+		map.put(Item.Decoration.Leaves.Spruce, Item.Decoration.Sapling.Spruce);
+		map.put(Item.Decoration.Leaves.Jungle, Item.Decoration.Sapling.Jungle);
+		map.put(Item.Decoration.Leaves.DarkOak, Item.Decoration.Sapling.DarkOak);
+		map.put(Item.Decoration.Leaves.Birch, Item.Decoration.Sapling.Birch);
+		map.put(Item.Decoration.Leaves.Acacia, Item.Decoration.Sapling.Acacia);
 		saplingMap = Collections.unmodifiableMap(map);
 	}
 }
