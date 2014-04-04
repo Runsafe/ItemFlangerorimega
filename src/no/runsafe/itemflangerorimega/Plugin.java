@@ -6,6 +6,7 @@ import no.runsafe.framework.features.Commands;
 import no.runsafe.framework.features.Events;
 import no.runsafe.itemflangerorimega.armour.CustomArmourEnchantHandler;
 import no.runsafe.itemflangerorimega.armour.enchants.DergonThunder;
+import no.runsafe.itemflangerorimega.armour.enchants.PathOfFrost;
 import no.runsafe.itemflangerorimega.armour.enchants.Resilience;
 import no.runsafe.itemflangerorimega.bows.CustomBowEnchantHandler;
 import no.runsafe.itemflangerorimega.bows.enchants.ExplosiveCharge;
@@ -34,9 +35,10 @@ public class Plugin extends RunsafePlugin
 		// Armour enchants
 		addComponent(Resilience.class);
 		addComponent(DergonThunder.class);
+		addComponent(PathOfFrost.class);
 
 		// Tool Enchants
-		addComponent(SaplingGarner.class);
+		//addComponent(SaplingGarner.class);
 
 		// Handlers
 		addComponent(CustomBowEnchantHandler.class);
