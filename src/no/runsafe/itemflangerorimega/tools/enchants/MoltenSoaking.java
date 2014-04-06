@@ -44,7 +44,6 @@ public class MoltenSoaking extends CustomToolEnchant
 			removeBlock(location, -1, -1);
 			removeBlock(location, 0, -1);
 
-
 			removeBlock(location, -1, 1);
 			removeBlock(location, 1, -1);
 
@@ -56,7 +55,9 @@ public class MoltenSoaking extends CustomToolEnchant
 	{
 		removeLava(location, offsetX, 0, offsetZ);
 		removeLava(location, offsetX, 1, offsetZ);
+		removeLava(location, offsetX, 2, offsetZ);
 		removeLava(location, offsetX, -1, offsetZ);
+		removeLava(location, offsetX, -2, offsetZ);
 	}
 
 	private void removeLava(ILocation location, int offsetX, int offsetY, int offsetZ)
