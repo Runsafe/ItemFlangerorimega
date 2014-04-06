@@ -2,12 +2,13 @@ package no.runsafe.itemflangerorimega.tools;
 
 import no.runsafe.framework.api.block.IBlock;
 import no.runsafe.framework.api.event.block.IBlockBreak;
+import no.runsafe.framework.api.event.player.IPlayerRightClick;
 import no.runsafe.framework.api.player.IPlayer;
 import no.runsafe.framework.minecraft.item.meta.RunsafeMeta;
 
 import java.util.*;
 
-public class CustomToolEnchantHandler implements IBlockBreak
+public class CustomToolEnchantHandler implements IBlockBreak, IPlayerRightClick
 {
 	public CustomToolEnchantHandler(ICustomToolEnchant[] enchants)
 	{
@@ -28,6 +29,24 @@ public class CustomToolEnchantHandler implements IBlockBreak
 					enchant.onBlockBreak(block);
 		}
 		return true;
+	}
+
+	@Override
+	public boolean OnPlayerRightClick(IPlayer player, RunsafeMeta usingItem, IBlock targetBlock)
+	{
+		boolean shouldCancel = false;
+		if (usingItem != null)
+		{
+			for (ICustomToolEnchant enchant : enchants)
+			{
+				if (hasEnchant(usingItem, enchant))
+				{
+					if (enchant.onUse(player, usingItem, targetBlock))
+						shouldCancel = true;
+				}
+			}
+		}
+		return !shouldCancel;
 	}
 
 	private boolean hasEnchant(RunsafeMeta item, ICustomToolEnchant enchant)

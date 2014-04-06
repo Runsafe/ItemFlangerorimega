@@ -17,7 +17,7 @@ import no.runsafe.itemflangerorimega.commands.EnchantTool;
 import no.runsafe.itemflangerorimega.scaffolding.ScaffoldingCommand;
 import no.runsafe.itemflangerorimega.scaffolding.ScaffoldingHandler;
 import no.runsafe.itemflangerorimega.tools.CustomToolEnchantHandler;
-import no.runsafe.itemflangerorimega.tools.enchants.SaplingGarner;
+import no.runsafe.itemflangerorimega.tools.enchants.MoltenSoaking;
 
 public class Plugin extends RunsafePlugin
 {
@@ -39,6 +39,7 @@ public class Plugin extends RunsafePlugin
 
 		// Tool Enchants
 		//addComponent(SaplingGarner.class);
+		addComponent(MoltenSoaking.class);
 
 		// Handlers
 		addComponent(CustomBowEnchantHandler.class);
