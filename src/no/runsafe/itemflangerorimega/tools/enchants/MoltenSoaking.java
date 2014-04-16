@@ -30,7 +30,7 @@ public class MoltenSoaking extends CustomToolEnchant
 
 		if (location != null)
 		{
-			item.remove(1);
+			player.removeExactItem(item, 1);
 			location.playEffect(WorldEffect.PORTAL, 0.5F, 100, 10F);
 			location.playSound(Sound.Portal.Trigger, 5F, 2F);
 
