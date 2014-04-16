@@ -9,9 +9,7 @@ import no.runsafe.framework.api.event.block.IBlockPlace;
 import no.runsafe.framework.api.event.block.IBlockRedstone;
 import no.runsafe.framework.api.event.entity.IEntityExplode;
 import no.runsafe.framework.api.player.IPlayer;
-import no.runsafe.framework.minecraft.Item;
-import no.runsafe.framework.minecraft.WorldBlockEffect;
-import no.runsafe.framework.minecraft.WorldBlockEffectType;
+import no.runsafe.framework.minecraft.*;
 import no.runsafe.framework.minecraft.event.block.RunsafeBlockRedstoneEvent;
 import no.runsafe.framework.minecraft.event.entity.RunsafeEntityExplodeEvent;
 import no.runsafe.framework.minecraft.item.meta.RunsafeMeta;
@@ -33,14 +31,24 @@ public class ScaffoldingHandler implements IBlockPlace, IBlockBreak, IEntityExpl
 		if (isItem(item) && control.playerCanBuildHere(player, block.getLocation()))
 		{
 			player.updateInventory();
-			scheduler.startSyncTask(new Runnable()
+			final ILocation blockLocation = block.getLocation();
+
+			if (block.getRedstonePower() > 0)
+			{
+				blockLocation.playSound(Sound.Environment.Fizz, 1, 2);
+				Effect.Extinguish.Play(blockLocation);
+			}
+			else
+			{
+				scheduler.startSyncTask(new Runnable()
 			{
 				@Override
 				public void run()
 				{
-					block.getLocation().getBlock().set(Item.Redstone.Piston.Box);
+					blockLocation.getBlock().set(Item.Redstone.Piston.Box);
 				}
 			}, 1L);
+			}
 		}
 		return true;
 	}
