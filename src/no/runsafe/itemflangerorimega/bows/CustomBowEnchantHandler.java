@@ -11,7 +11,6 @@ import no.runsafe.framework.minecraft.item.meta.RunsafeMeta;
 import no.runsafe.framework.tools.nms.EntityRegister;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class CustomBowEnchantHandler implements IEntityShootBowEvent, IServerReady
 {
