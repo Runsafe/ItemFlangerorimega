@@ -54,7 +54,6 @@ public class CustomBowEnchantHandler implements IEntityShootBowEvent, IServerRea
 
 		if (item != null && item.is(Item.Combat.Bow))
 		{
-			List<ICustomBowEnchant> bowEnchants = new ArrayList<ICustomBowEnchant>();
 			for (ICustomBowEnchant enchant : enchants)
 			{
 				if (hasEnchant(item, enchant))
@@ -76,6 +75,7 @@ public class CustomBowEnchantHandler implements IEntityShootBowEvent, IServerRea
 	public void OnServerReady()
 	{
 		EntityRegister.registerOverrideEntity(CustomArrow.class, "Arrow", 10);
+		net.minecraft.server.v1_7_R2.Item.REGISTRY.a(261, "bow", new CustomItemBow().c("bow"));
 	}
 
 	private HashMap<String, ICustomBowEnchant> enchantMap = new HashMap<String, ICustomBowEnchant>();
