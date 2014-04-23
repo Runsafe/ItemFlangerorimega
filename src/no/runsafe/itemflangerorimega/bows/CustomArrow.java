@@ -36,6 +36,9 @@ public class CustomArrow extends EntityArrow
 	{
 		super.h();
 
+		if (isExplosive)
+			world.addParticle("smoke", this.locX, this.locY, this.locZ, 0.0D, 0.0D, 0.0D);
+
 		if (inGround)
 		{
 			die(); // Remove
