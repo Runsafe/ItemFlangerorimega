@@ -3,7 +3,6 @@ package no.runsafe.itemflangerorimega.bows;
 import no.runsafe.framework.api.entity.ILivingEntity;
 import no.runsafe.framework.api.event.IServerReady;
 import no.runsafe.framework.api.event.entity.IEntityShootBowEvent;
-import no.runsafe.framework.api.log.IConsole;
 import no.runsafe.framework.internal.wrapper.ObjectUnwrapper;
 import no.runsafe.framework.minecraft.Item;
 import no.runsafe.framework.minecraft.entity.RunsafeEntity;
@@ -15,9 +14,8 @@ import java.util.*;
 
 public class CustomBowEnchantHandler implements IEntityShootBowEvent, IServerReady
 {
-	public CustomBowEnchantHandler(ICustomBowEnchant[] enchants, IConsole console)
+	public CustomBowEnchantHandler(ICustomBowEnchant[] enchants)
 	{
-		this.console = console;
 		this.enchants = Arrays.asList(enchants);
 		for (ICustomBowEnchant enchant : this.enchants)
 			this.enchantMap.put(enchant.getSimpleName(), enchant);
@@ -48,7 +46,6 @@ public class CustomBowEnchantHandler implements IEntityShootBowEvent, IServerRea
 	@Override
 	public void OnEntityShootBowEvent(RunsafeEntityShootBowEvent event)
 	{
-		console.logInformation("BOW SHOOT EVENT DETECTED");
 		RunsafeMeta item = null;
 		RunsafeEntity shootingEntity = event.getEntity();
 
@@ -83,5 +80,4 @@ public class CustomBowEnchantHandler implements IEntityShootBowEvent, IServerRea
 
 	private HashMap<String, ICustomBowEnchant> enchantMap = new HashMap<String, ICustomBowEnchant>();
 	private List<ICustomBowEnchant> enchants = new ArrayList<ICustomBowEnchant>();
-	private final IConsole console;
 }
