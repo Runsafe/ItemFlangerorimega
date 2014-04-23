@@ -158,7 +158,7 @@ public class CustomArrow extends EntityArrow
 					if (this.isCritical())
 						k += this.random.nextInt(k / 2 + 2);
 
-					DamageSource damagesource = null;
+					DamageSource damagesource;
 
 					if (this.shooter == null)
 						damagesource = DamageSource.arrow(this, this);
