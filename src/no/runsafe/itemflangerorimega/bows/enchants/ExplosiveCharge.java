@@ -1,7 +1,7 @@
 package no.runsafe.itemflangerorimega.bows.enchants;
 
-import no.runsafe.framework.api.entity.ILivingEntity;
-import no.runsafe.itemflangerorimega.bows.CustomArrow;
+import no.runsafe.framework.api.ILocation;
+import no.runsafe.framework.minecraft.entity.RunsafeProjectile;
 import no.runsafe.itemflangerorimega.bows.CustomBowEnchant;
 
 public class ExplosiveCharge extends CustomBowEnchant
@@ -19,9 +19,10 @@ public class ExplosiveCharge extends CustomBowEnchant
 	}
 
 	@Override
-	public boolean onArrowShoot(ILivingEntity entity, CustomArrow arrow)
+	public void onArrowCollide(RunsafeProjectile projectile)
 	{
-		arrow.setExplosive(true);
-		return true;
+		ILocation loc = projectile.getLocation();
+		loc.getWorld().createExplosion(loc, 3.0F, true, true);
+		projectile.remove();
 	}
 }
