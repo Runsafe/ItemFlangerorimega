@@ -37,13 +37,17 @@ public class CustomArrow extends EntityArrow
 		super.h();
 
 		if (isExplosive)
-			for (j = 0; j < 4; ++j)
-				this.world.addParticle("smoke", this.locX + this.motX * j / 4.0D, this.locY + this.motY * j / 4.0D, this.locZ + this.motZ * j / 4.0D, -this.motX, -this.motY + 0.2D, -this.motZ);
-
-		if (inGround)
 		{
-			die(); // Remove
-			world.createExplosion(this, locX, locY, locZ, 2F, true, true);
+			if (inGround)
+			{
+				die(); // Remove
+				world.createExplosion(this, locX, locY, locZ, 2F, true, true);
+			}
+			else
+			{
+				for (j = 0; j < 4; ++j)
+					this.world.addParticle("smoke", this.locX + this.motX * j / 4.0D, this.locY + this.motY * j / 4.0D, this.locZ + this.motZ * j / 4.0D, -this.motX, -this.motY + 0.2D, -this.motZ);
+			}
 		}
 	}
 
