@@ -6,21 +6,23 @@ import org.bukkit.util.Vector;
 
 public abstract class SlappingEnchant extends CustomWeaponEnchant
 {
-	public SlappingEnchant(double power)
+	public SlappingEnchant(double power, String text, String name)
 	{
 		this.power = power;
+		this.text = text;
+		this.name = name;
 	}
 
 	@Override
 	public String getEnchantText()
 	{
-		return "Slapping I";
+		return text;
 	}
 
 	@Override
 	public String getSimpleName()
 	{
-		return "slapping_1";
+		return name;
 	}
 
 	@Override
@@ -31,5 +33,7 @@ public abstract class SlappingEnchant extends CustomWeaponEnchant
 	}
 
 	private final double power;
+	private final String text;
+	private final String name;
 }
 

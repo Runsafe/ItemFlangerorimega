@@ -4,6 +4,6 @@ public class SlappingRank3 extends SlappingEnchant
 {
 	public SlappingRank3()
 	{
-		super(2);
+		super(2, "Major Slapping", "slapping_3");
 	}
 }
