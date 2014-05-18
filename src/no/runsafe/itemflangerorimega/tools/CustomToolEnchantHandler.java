@@ -22,13 +22,20 @@ public class CustomToolEnchantHandler implements IBlockBreak, IPlayerRightClick
 	{
 		RunsafeMeta item = player.getItemInHand();
 
+		boolean shouldCancel = false;
 		if (item != null)
 		{
 			for (ICustomToolEnchant enchant : enchants)
+			{
 				if (hasEnchant(item, enchant))
-					enchant.onBlockBreak(block);
+				{
+					if (enchant.onBlockBreak(block))
+						shouldCancel = true;
+
+				}
+			}
 		}
-		return true;
+		return !shouldCancel;
 	}
 
 	@Override

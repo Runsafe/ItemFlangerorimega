@@ -31,7 +31,7 @@ public class SaplingGarner extends CustomToolEnchant
 	}
 
 	@Override
-	public void onBlockBreak(IBlock block)
+	public boolean onBlockBreak(IBlock block)
 	{
 		Item blockMat = block.getMaterial();
 		debug.debugFine("Block break event detected: " + blockMat.getName());
@@ -42,6 +42,7 @@ public class SaplingGarner extends CustomToolEnchant
 			dropItem.setAmount(1);
 			block.getWorld().dropItem(block.getLocation(), dropItem);
 		}
+		return false;
 	}
 
 	private final IDebug debug;
