@@ -28,7 +28,7 @@ public class MoltenSoaking extends CustomToolEnchant
 	{
 		ILocation location = rightClicked == null ? player.getLocation() : rightClicked.getLocation();
 
-		if (location != null)
+		if (location != null && player.isSurvivalist())
 		{
 			player.removeExactItem(item, 1);
 			location.playEffect(WorldEffect.PORTAL, 0.5F, 100, 10F);
