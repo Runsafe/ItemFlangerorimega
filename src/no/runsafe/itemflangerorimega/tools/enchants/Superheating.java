@@ -25,8 +25,9 @@ public class Superheating extends CustomToolEnchant
 		if (block.is(Item.Ore.Iron) || block.is(Item.Ore.Gold))
 		{
 			block.set(Item.Unavailable.Air);
-			RunsafeMeta item = block.getMaterial().getItem();
+			RunsafeMeta item = block.is(Item.Ore.Iron) ? Item.Materials.IronIngot.getItem() : Item.Materials.GoldIngot.getItem();
 			item.setAmount(1);
+
 			block.getWorld().dropItem(block.getLocation(), item);
 			return true;
 		}
