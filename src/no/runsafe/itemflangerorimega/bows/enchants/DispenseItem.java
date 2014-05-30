@@ -71,11 +71,10 @@ public class DispenseItem extends CustomBowEnchant
 		RunsafeLivingEntity shooter = projectile.getShooter();
 		if (shooter != null)
 		{
-			ILocation shooterLocation = shooter.getLocation();
+			ILocation location = shooter.getLocation();
 
-			if (shooterLocation != null)
+			if (location != null)
 			{
-				ILocation location = shooterLocation.clone();
 				location.offset(0, -1, 0);
 
 				IBlock block = location.getBlock();
