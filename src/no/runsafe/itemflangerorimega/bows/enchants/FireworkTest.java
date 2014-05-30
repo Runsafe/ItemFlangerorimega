@@ -14,7 +14,7 @@ import org.bukkit.inventory.meta.FireworkMeta;
 public class FireworkTest extends CustomBowEnchant
 {
 	@Override
-	public boolean onArrowShoot(ILivingEntity entity)
+	public boolean onArrowShoot(ILivingEntity entity, IEntity arrow)
 	{
 		ILocation location = entity.getLocation();
 

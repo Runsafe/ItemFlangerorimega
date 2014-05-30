@@ -1,5 +1,6 @@
 package no.runsafe.itemflangerorimega.bows;
 
+import no.runsafe.framework.api.entity.IEntity;
 import no.runsafe.framework.api.entity.ILivingEntity;
 import no.runsafe.framework.api.event.entity.IEntityDamageByEntityEvent;
 import no.runsafe.framework.api.event.entity.IEntityShootBowEvent;
@@ -112,7 +113,7 @@ public class CustomBowEnchantHandler implements IProjectileHitEvent, IEntityShoo
 				{
 					if (hasEnchant(item, enchant))
 					{
-						boolean allowShoot = enchant.onArrowShoot((ILivingEntity) shootingEntity);
+						boolean allowShoot = enchant.onArrowShoot((ILivingEntity) shootingEntity, (IEntity) event.getProjectile());
 
 						if (allowShoot)
 							bowEnchants.add(enchant);
