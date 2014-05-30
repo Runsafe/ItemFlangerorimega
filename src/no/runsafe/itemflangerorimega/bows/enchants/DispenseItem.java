@@ -33,30 +33,25 @@ public class DispenseItem extends CustomBowEnchant
 	@Override
 	public boolean onArrowShoot(ILivingEntity entity, IEntity arrow)
 	{
-		if (entity instanceof IPlayer)
+		int entityID = entity.getEntityId();
+		if (locations.containsKey(entityID))
 		{
-			IPlayer player = (IPlayer) entity;
-			String playerName = player.getName();
+			ILocation chestLocation = locations.get(entityID);
+			IBlock chestBlock = chestLocation.getBlock();
 
-			if (locations.containsKey(playerName))
+			if (chestBlock.is(Item.Decoration.Chest))
 			{
-				ILocation chestLocation = locations.get(playerName);
-				IBlock chestBlock = chestLocation.getBlock();
+				IChest chest = (IChest) chestBlock;
+				RunsafeInventory chestInventory = chest.getInventory();
 
-				if (chestBlock.is(Item.Decoration.Chest))
+				RunsafeMeta item = chestInventory.getContents().get(0);
+				chestInventory.remove(item);
+
+				IWorld world = arrow.getWorld();
+				if (world != null)
 				{
-					IChest chest = (IChest) chestBlock;
-					RunsafeInventory chestInventory = chest.getInventory();
-
-					RunsafeMeta item = chestInventory.getContents().get(0);
-					chestInventory.remove(item);
-
-					IWorld world = arrow.getWorld();
-					if (world != null)
-					{
-						RunsafeItem itemEntity = world.dropItem(arrow.getLocation(), item);
-						arrow.setPassenger(itemEntity);
-					}
+					RunsafeItem itemEntity = world.dropItem(arrow.getLocation(), item);
+					arrow.setPassenger(itemEntity);
 				}
 			}
 		}
@@ -68,11 +63,11 @@ public class DispenseItem extends CustomBowEnchant
 	{
 		if (block.is(Item.Decoration.Chest))
 		{
-			IPlayer shooter = projectile.getShooterPlayer();
+			ILivingEntity shooter = projectile.getShooter();
 			if (shooter != null)
-				locations.put(shooter.getName(), block.getLocation());
+				locations.put(shooter.getEntityId(), block.getLocation());
 		}
 	}
 
-	private ConcurrentHashMap<String, ILocation> locations = new ConcurrentHashMap<String, ILocation>(0);
+	private ConcurrentHashMap<Integer, ILocation> locations = new ConcurrentHashMap<Integer, ILocation>(0);
 }
