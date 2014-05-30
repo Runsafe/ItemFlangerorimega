@@ -61,7 +61,7 @@ public class DispenseItem extends CustomBowEnchant
 	@Override
 	public void onArrowCollideBlock(RunsafeProjectile projectile, IBlock block)
 	{
-		if (block.is(Item.Decoration.Chest))
+		if (block instanceof IChest)
 		{
 			ILivingEntity shooter = projectile.getShooter();
 			if (shooter != null)
