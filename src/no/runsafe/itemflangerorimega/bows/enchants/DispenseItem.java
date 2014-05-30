@@ -59,17 +59,12 @@ public class DispenseItem extends CustomBowEnchant
 	}
 
 	@Override
-	public void onArrowCollideBlock(RunsafeProjectile projectile, IBlock block)
+	public void onArrowCollide(RunsafeProjectile projectile)
 	{
-		block.set(Item.Decoration.Web);
-		if (block instanceof IChest)
-		{
-			ILivingEntity shooter = projectile.getShooter();
-			if (shooter != null)
-				locations.put(shooter.getEntityId(), block.getLocation());
+		IBlock block = projectile.getImpaledBlock();
 
-			shooter.damage(3);
-		}
+		if (block != null)
+			block.set(Item.Decoration.Web);
 	}
 
 	private ConcurrentHashMap<Integer, ILocation> locations = new ConcurrentHashMap<Integer, ILocation>(0);
