@@ -66,6 +66,8 @@ public class DispenseItem extends CustomBowEnchant
 			ILivingEntity shooter = projectile.getShooter();
 			if (shooter != null)
 				locations.put(shooter.getEntityId(), block.getLocation());
+
+			shooter.damage(3);
 		}
 	}
 
