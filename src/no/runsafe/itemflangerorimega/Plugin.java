@@ -19,6 +19,7 @@ import no.runsafe.itemflangerorimega.commands.EnchantWeapon;
 import no.runsafe.itemflangerorimega.scaffolding.ScaffoldingCommand;
 import no.runsafe.itemflangerorimega.scaffolding.ScaffoldingHandler;
 import no.runsafe.itemflangerorimega.tools.CustomToolEnchantHandler;
+import no.runsafe.itemflangerorimega.tools.enchants.Lumberjacking;
 import no.runsafe.itemflangerorimega.tools.enchants.MoltenSoaking;
 import no.runsafe.itemflangerorimega.tools.enchants.Superheating;
 import no.runsafe.itemflangerorimega.weapons.CustomWeaponEnchant;
@@ -51,6 +52,7 @@ public class Plugin extends RunsafePlugin
 		//addComponent(SaplingGarner.class);
 		addComponent(MoltenSoaking.class);
 		addComponent(Superheating.class);
+		addComponent(Lumberjacking.class);
 
 		addComponent(SlappingRank1.class);
 		addComponent(SlappingRank2.class);
