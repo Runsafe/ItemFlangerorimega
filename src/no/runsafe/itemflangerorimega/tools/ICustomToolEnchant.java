@@ -8,6 +8,6 @@ public interface ICustomToolEnchant
 {
 	public String getEnchantText();
 	public String getSimpleName();
-	public boolean onBlockBreak(IBlock block);
+	public boolean onBlockBreak(IPlayer player, IBlock block);
 	public boolean onUse(IPlayer player, RunsafeMeta item, IBlock rightClicked);
 }

@@ -7,7 +7,7 @@ import no.runsafe.framework.minecraft.item.meta.RunsafeMeta;
 public abstract class CustomToolEnchant implements  ICustomToolEnchant
 {
 	@Override
-	public boolean onBlockBreak(IBlock block)
+	public boolean onBlockBreak(IPlayer player, IBlock block)
 	{
 		// Replace me!
 		return false;

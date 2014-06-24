@@ -29,7 +29,7 @@ public class CustomToolEnchantHandler implements IBlockBreak, IPlayerRightClick
 			{
 				if (hasEnchant(item, enchant))
 				{
-					if (enchant.onBlockBreak(block))
+					if (enchant.onBlockBreak(player, block))
 						shouldCancel = true;
 
 				}
