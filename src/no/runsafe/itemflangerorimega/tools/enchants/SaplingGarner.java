@@ -2,6 +2,7 @@ package no.runsafe.itemflangerorimega.tools.enchants;
 
 import no.runsafe.framework.api.block.IBlock;
 import no.runsafe.framework.api.log.IDebug;
+import no.runsafe.framework.api.player.IPlayer;
 import no.runsafe.framework.minecraft.Item;
 import no.runsafe.framework.minecraft.item.meta.RunsafeMeta;
 import no.runsafe.itemflangerorimega.tools.CustomToolEnchant;
@@ -31,7 +32,7 @@ public class SaplingGarner extends CustomToolEnchant
 	}
 
 	@Override
-	public boolean onBlockBreak(IBlock block)
+	public boolean onBlockBreak(IPlayer player, IBlock block)
 	{
 		Item blockMat = block.getMaterial();
 		debug.debugFine("Block break event detected: " + blockMat.getName());
