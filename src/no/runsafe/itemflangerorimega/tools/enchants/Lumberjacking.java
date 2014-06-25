@@ -24,27 +24,29 @@ public class Lumberjacking extends CustomToolEnchant
 	public boolean onBlockBreak(IPlayer player, IBlock block)
 	{
 		if (player.isSurvivalist())
-		{
 			breakBlock(block, 0);
-		}
-		return true;
+
+		return false;
 	}
 
 	private void breakBlock(IBlock block, int depth)
 	{
-		block.breakNaturally();
-		ILocation location = block.getLocation();
-
-		depth += 1;
-
-		if (depth < 30)
+		if (block.is(Item.BuildingBlock.Wood.Any))
 		{
-			check(location, 1, 0, 0, depth);
-			check(location, -1, 0, 0, depth);
-			check(location, 0, 0, 1, depth);
-			check(location, 0, 0, -1, depth);
-			check(location, 0, 1, 0, depth);
-			check(location, 0, -1, 0, depth);
+			block.breakNaturally();
+			ILocation location = block.getLocation();
+
+			depth += 1;
+
+			if (depth < 30)
+			{
+				check(location, 1, 0, 0, depth);
+				check(location, -1, 0, 0, depth);
+				check(location, 0, 0, 1, depth);
+				check(location, 0, 0, -1, depth);
+				check(location, 0, 1, 0, depth);
+				check(location, 0, -1, 0, depth);
+			}
 		}
 	}
 
