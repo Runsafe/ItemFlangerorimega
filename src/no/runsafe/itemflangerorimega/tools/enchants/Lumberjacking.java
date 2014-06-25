@@ -38,7 +38,7 @@ public class Lumberjacking extends CustomToolEnchant
 
 			depth += 1;
 
-			if (depth < 30)
+			if (depth < 100)
 			{
 				check(location, 1, 0, 0, depth);
 				check(location, -1, 0, 0, depth);
