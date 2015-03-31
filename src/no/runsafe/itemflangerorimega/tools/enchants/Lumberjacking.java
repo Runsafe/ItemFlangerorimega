@@ -23,7 +23,7 @@ public class Lumberjacking extends CustomToolEnchant
 	@Override
 	public boolean onBlockBreak(IPlayer player, IBlock block)
 	{
-		if (player.isSurvivalist())
+		if (player.isSurvivalist() && block.is(Item.BuildingBlock.Wood.Any))
 			breakBlock(block, 0);
 
 		return false;
@@ -31,7 +31,7 @@ public class Lumberjacking extends CustomToolEnchant
 
 	private void breakBlock(IBlock block, int depth)
 	{
-		if (block.is(Item.BuildingBlock.Wood.Any))
+		if (block.is(Item.BuildingBlock.Wood.Any) | block.is(Item.Decoration.Leaves.Any) || block.is(Item.BuildingBlock.Wood.New.Any))
 		{
 			block.breakNaturally();
 			ILocation location = block.getLocation();
@@ -56,7 +56,7 @@ public class Lumberjacking extends CustomToolEnchant
 		location.offset(offsetX, offsetY, offsetZ);
 		IBlock block = location.getBlock();
 
-		if (block.is(Item.Decoration.Leaves.Any) || block.is(Item.BuildingBlock.Wood.Any))
+		if (block.is(Item.Decoration.Leaves.Any) || block.is(Item.BuildingBlock.Wood.Any) || block.is(Item.BuildingBlock.Wood.New.Any))
 			breakBlock(block, depth);
 	}
 }
