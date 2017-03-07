@@ -68,7 +68,7 @@ public class DispenseItem extends CustomBowEnchant
 	@Override
 	public void onArrowCollide(RunsafeProjectile projectile)
 	{
-		RunsafeLivingEntity shooter = projectile.getShooter();
+		RunsafeLivingEntity shooter = (RunsafeLivingEntity)projectile.getShooter();
 		if (shooter != null)
 		{
 			ILocation location = shooter.getLocation();

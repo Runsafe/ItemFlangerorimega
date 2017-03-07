@@ -21,7 +21,7 @@ public class ScaffoldingHandler implements IBlockPlace, IBlockBreak, IEntityExpl
 	{
 		this.scheduler = scheduler;
 		this.control = control;
-		effect = new WorldBlockEffect(WorldBlockEffectType.BLOCK_DUST, Item.Decoration.Fence);
+		effect = new WorldBlockEffect(WorldBlockEffectType.BLOCK_DUST, Item.Decoration.Fence.Fence);
 	}
 
 	@Override
