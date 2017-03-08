@@ -6,6 +6,7 @@ import no.runsafe.framework.api.block.IBlock;
 import no.runsafe.framework.api.block.IChest;
 import no.runsafe.framework.api.entity.IEntity;
 import no.runsafe.framework.api.entity.ILivingEntity;
+import no.runsafe.framework.api.entity.IProjectileSource;
 import no.runsafe.framework.api.player.IPlayer;
 import no.runsafe.framework.minecraft.Item;
 import no.runsafe.framework.minecraft.entity.RunsafeItem;
@@ -68,20 +69,21 @@ public class DispenseItem extends CustomBowEnchant
 	@Override
 	public void onArrowCollide(RunsafeProjectile projectile)
 	{
-		RunsafeLivingEntity shooter = (RunsafeLivingEntity)projectile.getShooter();
-		if (shooter != null)
+		IProjectileSource shooterSource = projectile.getShooter();
+		if(!(shooterSource instanceof RunsafeLivingEntity))
+			return;
+		RunsafeLivingEntity shooter = (RunsafeLivingEntity) shooterSource;
+
+		ILocation location = shooter.getLocation();
+		if (location != null)
 		{
-			ILocation location = shooter.getLocation();
+			location.offset(0, -1, 0);
 
-			if (location != null)
-			{
-				location.offset(0, -1, 0);
-
-				IBlock block = location.getBlock();
-				if (block.is(Item.Decoration.Chest))
+			IBlock block = location.getBlock();
+			if (block.is(Item.Decoration.Chest))
 					locations.put(shooter.getEntityId(), location);
-			}
 		}
+
 	}
 
 	private void chestCheck()
