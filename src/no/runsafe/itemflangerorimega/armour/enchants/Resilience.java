@@ -36,11 +36,7 @@ public class Resilience extends CustomArmourEnchant
 			wasPlayerAttacking = true;
 		}
 		else if (attacker instanceof RunsafeProjectile)
-		{
-			IPlayer shooter = ((RunsafeProjectile) attacker).getShootingPlayer();
-			if (shooter != null)
-				wasPlayerAttacking = true;
-		}
+			wasPlayerAttacking = ((RunsafeProjectile) attacker).getShootingPlayer() != null;
 
 		if (wasPlayerAttacking)
 		{
