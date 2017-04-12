@@ -29,9 +29,11 @@ public class FireworkTest extends CustomBowEnchant
 			meta.addEffect(effect);
 			meta.setPower(3);
 			firework.setFireworkMeta(meta);
+
+			arrow.setPassenger(fireworkEntity);
 		}
 
-		return false;
+		return true;
 	}
 
 	@Override

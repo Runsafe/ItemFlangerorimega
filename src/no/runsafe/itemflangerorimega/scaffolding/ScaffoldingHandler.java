@@ -40,14 +40,17 @@ public class ScaffoldingHandler implements IBlockPlace, IBlockBreak, IEntityExpl
 			}
 			else
 			{
-				scheduler.startSyncTask(new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					blockLocation.getBlock().set(Item.Redstone.Piston.Box);
-				}
-			}, 1L);
+				scheduler.startSyncTask(
+						new Runnable()
+						{
+							@Override
+							public void run()
+							{
+								blockLocation.getBlock().set(Item.Unavailable.DoubleSlab.Plank);
+							}
+						},
+						1L
+				);
 			}
 		}
 		return true;
@@ -56,7 +59,7 @@ public class ScaffoldingHandler implements IBlockPlace, IBlockBreak, IEntityExpl
 	@Override
 	public boolean OnBlockBreak(IPlayer player, IBlock block)
 	{
-		if (block.is(Item.Redstone.Piston.Box))
+		if (block.is(Item.Unavailable.DoubleSlab.Plank))
 		{
 			handleScaffoldingBreak(block);
 			return false;
@@ -85,7 +88,7 @@ public class ScaffoldingHandler implements IBlockPlace, IBlockBreak, IEntityExpl
 		location.offset(x, y, z);
 		IBlock block = location.getBlock();
 
-		if (block.is(Item.Redstone.Piston.Box))
+		if (block.is(Item.Unavailable.DoubleSlab.Plank))
 			handleScaffoldingBreak(block);
 	}
 
@@ -114,7 +117,7 @@ public class ScaffoldingHandler implements IBlockPlace, IBlockBreak, IEntityExpl
 	{
 		for (IBlock block : event.getBlockList())
 		{
-			if (block.is(Item.Redstone.Piston.Box))
+			if (block.is(Item.Unavailable.DoubleSlab.Plank))
 			{
 				event.setYield(0);
 				return;
@@ -125,7 +128,7 @@ public class ScaffoldingHandler implements IBlockPlace, IBlockBreak, IEntityExpl
 	@Override
 	public void OnBlockRedstoneEvent(RunsafeBlockRedstoneEvent event)
 	{
-		if (event.getBlock().is(Item.Redstone.Piston.Box))
+		if (event.getBlock().is(Item.Unavailable.DoubleSlab.Plank))
 			event.setNewCurrent(0);
 	}
 
