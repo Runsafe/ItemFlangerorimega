@@ -1,6 +1,8 @@
 package no.runsafe.itemflangerorimega.bows.enchants;
 
 import no.runsafe.framework.api.ILocation;
+import no.runsafe.framework.api.entity.ITNTPrimed;
+import no.runsafe.framework.minecraft.entity.ProjectileEntity;
 import no.runsafe.framework.minecraft.entity.RunsafeProjectile;
 import no.runsafe.itemflangerorimega.bows.CustomBowEnchant;
 
@@ -22,7 +24,11 @@ public class ExplosiveCharge extends CustomBowEnchant
 	public void onArrowCollide(RunsafeProjectile projectile)
 	{
 		ILocation loc = projectile.getLocation();
-		loc.getWorld().createExplosion(loc, 3.0F, true, true);
+
+		ITNTPrimed primedTNT = (ITNTPrimed) ProjectileEntity.PrimedTNT.spawn(loc);
+		primedTNT.setIsIncendiary(true);
+		primedTNT.setFuseTicks(1);
+
 		projectile.remove();
 	}
 }
