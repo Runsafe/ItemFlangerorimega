@@ -23,6 +23,9 @@ public class PathOfFrost extends CustomArmourEnchant
 	@Override
 	public void playerMove(IPlayer player, ILocation from, ILocation to)
 	{
+		if(!player.canBuildNow()) // Don't let players freeze water where they don't have permission to build.
+			return;
+
 		checkBlock(to, 0, 0);
 		checkBlock(to, 1, 0);
 		checkBlock(to, -1, 0);
