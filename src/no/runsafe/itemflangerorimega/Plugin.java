@@ -22,7 +22,6 @@ import no.runsafe.itemflangerorimega.tools.CustomToolEnchantHandler;
 import no.runsafe.itemflangerorimega.tools.enchants.Lumberjacking;
 import no.runsafe.itemflangerorimega.tools.enchants.MoltenSoaking;
 import no.runsafe.itemflangerorimega.tools.enchants.Superheating;
-import no.runsafe.itemflangerorimega.weapons.CustomWeaponEnchant;
 import no.runsafe.itemflangerorimega.weapons.CustomWeaponEnchantHandler;
 import no.runsafe.itemflangerorimega.weapons.enchants.SlappingRank1;
 import no.runsafe.itemflangerorimega.weapons.enchants.SlappingRank2;

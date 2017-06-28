@@ -20,7 +20,7 @@ public class EnchantTool extends PlayerCommand
 	@Override
 	public String OnExecute(IPlayer executor, IArgumentList parameters)
 	{
-		String enchantType = parameters.get("enchant");
+		String enchantType = parameters.getValue("enchant");
 		RunsafeMeta item = executor.getItemInHand();
 		if (item != null)
 		{

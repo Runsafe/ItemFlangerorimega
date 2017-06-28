@@ -15,8 +15,8 @@ public class EnchantArmour extends PlayerCommand
 	public EnchantArmour(CustomArmourEnchantHandler handler)
 	{
 		super(
-				"armour", "Enchants armour using a magical custom enchant.", "runsafe.flangerorimega.enchant.armour",
-				new EnchantArmourArgument(handler)
+			"armour", "Enchants armour using a magical custom enchant.", "runsafe.flangerorimega.enchant.armour",
+			new EnchantArmourArgument(handler)
 		);
 		this.handler = handler;
 	}
@@ -24,7 +24,7 @@ public class EnchantArmour extends PlayerCommand
 	@Override
 	public String OnExecute(IPlayer executor, IArgumentList parameters)
 	{
-		String enchantType = parameters.get("enchant");
+		String enchantType = parameters.getValue("enchant");
 		RunsafeMeta item = executor.getItemInHand();
 		if (item != null && validItem(item))
 		{
