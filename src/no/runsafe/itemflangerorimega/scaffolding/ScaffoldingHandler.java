@@ -39,19 +39,7 @@ public class ScaffoldingHandler implements IBlockPlace, IBlockBreak, IEntityExpl
 				Effect.Extinguish.Play(blockLocation);
 			}
 			else
-			{
-				scheduler.startSyncTask(
-					new Runnable()
-					{
-						@Override
-						public void run()
-						{
-							blockLocation.getBlock().set(Item.Unavailable.DoubleSlab.Plank);
-						}
-					},
-					1L
-				);
-			}
+				scheduler.startSyncTask(() -> blockLocation.getBlock().set(Item.Unavailable.DoubleSlab.Plank), 1L);
 		}
 		return true;
 	}
