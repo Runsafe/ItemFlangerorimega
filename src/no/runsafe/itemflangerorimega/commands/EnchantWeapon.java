@@ -11,8 +11,8 @@ public class EnchantWeapon extends PlayerCommand
 	public EnchantWeapon(CustomWeaponEnchantHandler handler)
 	{
 		super(
-				"weapon", "Enchants a weapon using a magical custom enchant.", "runsafe.flangerorimega.enchant.weapons",
-				new EnchantWeaponArgument(handler)
+			"weapon", "Enchants a weapon using a magical custom enchant.", "runsafe.flangerorimega.enchant.weapons",
+			new EnchantWeaponArgument(handler)
 		);
 		this.handler = handler;
 	}

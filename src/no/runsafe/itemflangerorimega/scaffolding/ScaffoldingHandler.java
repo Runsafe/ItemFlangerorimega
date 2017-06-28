@@ -41,15 +41,15 @@ public class ScaffoldingHandler implements IBlockPlace, IBlockBreak, IEntityExpl
 			else
 			{
 				scheduler.startSyncTask(
-						new Runnable()
+					new Runnable()
+					{
+						@Override
+						public void run()
 						{
-							@Override
-							public void run()
-							{
-								blockLocation.getBlock().set(Item.Unavailable.DoubleSlab.Plank);
-							}
-						},
-						1L
+							blockLocation.getBlock().set(Item.Unavailable.DoubleSlab.Plank);
+						}
+					},
+					1L
 				);
 			}
 		}
