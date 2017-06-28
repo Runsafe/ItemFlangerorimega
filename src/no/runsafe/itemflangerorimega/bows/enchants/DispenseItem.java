@@ -7,7 +7,6 @@ import no.runsafe.framework.api.block.IChest;
 import no.runsafe.framework.api.entity.IEntity;
 import no.runsafe.framework.api.entity.ILivingEntity;
 import no.runsafe.framework.api.entity.IProjectileSource;
-import no.runsafe.framework.api.player.IPlayer;
 import no.runsafe.framework.minecraft.Item;
 import no.runsafe.framework.minecraft.entity.RunsafeItem;
 import no.runsafe.framework.minecraft.entity.RunsafeLivingEntity;
