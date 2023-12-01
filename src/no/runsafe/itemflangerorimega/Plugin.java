@@ -2,6 +2,7 @@ package no.runsafe.itemflangerorimega;
 
 import no.runsafe.framework.RunsafePlugin;
 import no.runsafe.framework.api.command.Command;
+import no.runsafe.framework.api.log.IDebug;
 import no.runsafe.framework.features.Commands;
 import no.runsafe.framework.features.Events;
 import no.runsafe.itemflangerorimega.armour.CustomArmourEnchantHandler;
@@ -30,9 +31,13 @@ import no.runsafe.itemflangerorimega.weapons.enchants.SlappingRank4;
 
 public class Plugin extends RunsafePlugin
 {
+	public static IDebug debugger;
+
 	@Override
 	protected void pluginSetup()
 	{
+		debugger = getComponent(IDebug.class);
+
 		// Framework features
 		addComponent(Events.class);
 		addComponent(Commands.class);

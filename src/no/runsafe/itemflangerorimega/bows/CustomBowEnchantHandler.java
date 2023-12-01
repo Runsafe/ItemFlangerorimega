@@ -1,5 +1,6 @@
 package no.runsafe.itemflangerorimega.bows;
 
+import no.runsafe.framework.api.entity.IEntity;
 import no.runsafe.framework.api.entity.ILivingEntity;
 import no.runsafe.framework.api.event.entity.IEntityDamageByEntityEvent;
 import no.runsafe.framework.api.event.entity.IEntityShootBowEvent;
@@ -13,14 +14,17 @@ import no.runsafe.framework.minecraft.event.entity.RunsafeEntityDamageByEntityEv
 import no.runsafe.framework.minecraft.event.entity.RunsafeEntityShootBowEvent;
 import no.runsafe.framework.minecraft.event.entity.RunsafeProjectileHitEvent;
 import no.runsafe.framework.minecraft.item.meta.RunsafeMeta;
+import no.runsafe.itemflangerorimega.Plugin;
+import no.runsafe.worldguardbridge.IRegionControl;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CustomBowEnchantHandler implements IProjectileHitEvent, IEntityShootBowEvent, IEntityDamageByEntityEvent
 {
-	public CustomBowEnchantHandler(ICustomBowEnchant[] enchants)
+	public CustomBowEnchantHandler(ICustomBowEnchant[] enchants, IRegionControl regionControl)
 	{
+		this.regionControl = regionControl;
 		this.enchants = Arrays.asList(enchants);
 		for (ICustomBowEnchant enchant : this.enchants)
 			this.enchantMap.put(enchant.getSimpleName(), enchant);
@@ -47,6 +51,19 @@ public class CustomBowEnchantHandler implements IProjectileHitEvent, IEntityShoo
 		RunsafeProjectile projectile = event.getProjectile();
 		if (!this.isTrackedArrow(projectile))
 			return;
+
+		IEntity shooter = projectile.getShootingEntity();
+		if (shooter != null)
+		{
+			Plugin.debugger.debugFine("Arrow collision. shooter entity type: " + shooter.getEntityType());
+			Plugin.debugger.debugFine("Arrow collision. shooter entity UUID: " + shooter.getUniqueId());
+
+			if (shooter instanceof IPlayer && !regionControl.playerCanBuildHere((IPlayer) shooter, projectile.getLocation()))
+			{
+				this.unTrackProjectile(projectile);
+				return;
+			}
+		}
 
 		List<ICustomBowEnchant> arrowEnchants = this.trackedArrows.get(projectile.getEntityId());
 		for (ICustomBowEnchant enchant : arrowEnchants)
@@ -102,7 +119,12 @@ public class CustomBowEnchantHandler implements IProjectileHitEvent, IEntityShoo
 
 		RunsafeMeta item = null;
 		if (shootingEntity instanceof IPlayer)
+		{
+			if (!regionControl.playerCanBuildHere((IPlayer) shootingEntity, shootingEntity.getLocation()))
+				return;
+
 			item = ((IPlayer) shootingEntity).getItemInMainHand();
+		}
 		else if (shootingEntity instanceof ILivingEntity)
 			item = ((ILivingEntity) shootingEntity).getEquipment().getItemInHand();
 
@@ -130,4 +152,5 @@ public class CustomBowEnchantHandler implements IProjectileHitEvent, IEntityShoo
 	private final ConcurrentHashMap<Integer, List<ICustomBowEnchant>> trackedArrows = new ConcurrentHashMap<>();
 	private final HashMap<String, ICustomBowEnchant> enchantMap = new HashMap<>();
 	private final List<ICustomBowEnchant> enchants;
+	private final IRegionControl regionControl;
 }
