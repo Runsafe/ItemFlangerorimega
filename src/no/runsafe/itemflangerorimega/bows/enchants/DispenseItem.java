@@ -7,10 +7,9 @@ import no.runsafe.framework.api.block.IChest;
 import no.runsafe.framework.api.entity.IEntity;
 import no.runsafe.framework.api.entity.ILivingEntity;
 import no.runsafe.framework.api.entity.IProjectileSource;
+import no.runsafe.framework.api.entity.projectiles.IProjectile;
 import no.runsafe.framework.minecraft.Item;
 import no.runsafe.framework.minecraft.entity.RunsafeItem;
-import no.runsafe.framework.minecraft.entity.RunsafeLivingEntity;
-import no.runsafe.framework.minecraft.entity.RunsafeProjectile;
 import no.runsafe.framework.minecraft.inventory.RunsafeInventory;
 import no.runsafe.framework.minecraft.item.meta.RunsafeMeta;
 import no.runsafe.itemflangerorimega.bows.CustomBowEnchant;
@@ -66,12 +65,12 @@ public class DispenseItem extends CustomBowEnchant
 	}
 
 	@Override
-	public void onArrowCollide(RunsafeProjectile projectile)
+	public void onArrowCollide(IProjectile projectile)
 	{
 		IProjectileSource shooterSource = projectile.getShooter();
-		if(!(shooterSource instanceof RunsafeLivingEntity))
+		if(!(shooterSource instanceof ILivingEntity))
 			return;
-		RunsafeLivingEntity shooter = (RunsafeLivingEntity) shooterSource;
+		ILivingEntity shooter = (ILivingEntity) shooterSource;
 
 		ILocation location = shooter.getLocation();
 		if (location == null)

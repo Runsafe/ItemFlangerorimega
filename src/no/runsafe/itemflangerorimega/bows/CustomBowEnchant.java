@@ -3,25 +3,24 @@ package no.runsafe.itemflangerorimega.bows;
 import no.runsafe.framework.api.block.IBlock;
 import no.runsafe.framework.api.entity.IEntity;
 import no.runsafe.framework.api.entity.ILivingEntity;
-import no.runsafe.framework.minecraft.entity.RunsafeEntity;
-import no.runsafe.framework.minecraft.entity.RunsafeProjectile;
+import no.runsafe.framework.api.entity.projectiles.IProjectile;
 
 public abstract class CustomBowEnchant implements ICustomBowEnchant
 {
 	@Override
-	public void onArrowCollideBlock(RunsafeProjectile projectile, IBlock block)
+	public void onArrowCollideBlock(IProjectile projectile, IBlock block)
 	{
 		// Placeholder for extended classes.
 	}
 
 	@Override
-	public void onArrowCollideEntity(RunsafeProjectile projectile, RunsafeEntity entity)
+	public void onArrowCollideEntity(IProjectile projectile, IEntity entity)
 	{
 		// Placeholder for extended classes.
 	}
 
 	@Override
-	public void onArrowCollide(RunsafeProjectile projectile)
+	public void onArrowCollide(IProjectile projectile)
 	{
 		// Placeholder for extended classes.
 	}
