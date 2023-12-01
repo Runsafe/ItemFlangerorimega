@@ -22,7 +22,7 @@ public class EnchantBow extends PlayerCommand
 	public String OnExecute(IPlayer executor, IArgumentList parameters)
 	{
 		String enchantType = parameters.getValue("enchant");
-		RunsafeMeta item = executor.getItemInHand();
+		RunsafeMeta item = executor.getItemInMainHand();
 		if (item != null && item.is(Item.Combat.Bow))
 		{
 			this.handler.enchantBow(item, this.handler.getEnchant(enchantType));
@@ -31,5 +31,5 @@ public class EnchantBow extends PlayerCommand
 		return "&cYou are not holding a bow.";
 	}
 
-	private CustomBowEnchantHandler handler;
+	private final CustomBowEnchantHandler handler;
 }

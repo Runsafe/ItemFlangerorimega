@@ -20,38 +20,38 @@ public class CustomToolEnchantHandler implements IBlockBreak, IPlayerRightClick
 	@Override
 	public boolean OnBlockBreak(IPlayer player, IBlock block)
 	{
-		RunsafeMeta item = player.getItemInHand();
+		RunsafeMeta item = player.getItemInMainHand();
+
+		if (item == null)
+			return true;
 
 		boolean shouldCancel = false;
-		if (item != null)
+		for (ICustomToolEnchant enchant : enchants)
 		{
-			for (ICustomToolEnchant enchant : enchants)
-			{
-				if (hasEnchant(item, enchant))
-				{
-					if (enchant.onBlockBreak(player, block))
-						shouldCancel = true;
+			if (!hasEnchant(item, enchant))
+				continue;
 
-				}
-			}
+			if (enchant.onBlockBreak(player, block))
+				shouldCancel = true;
 		}
+
 		return !shouldCancel;
 	}
 
 	@Override
 	public boolean OnPlayerRightClick(IPlayer player, RunsafeMeta usingItem, IBlock targetBlock)
 	{
+		if (usingItem == null)
+			return true;
+
 		boolean shouldCancel = false;
-		if (usingItem != null)
+		for (ICustomToolEnchant enchant : enchants)
 		{
-			for (ICustomToolEnchant enchant : enchants)
-			{
-				if (hasEnchant(usingItem, enchant))
-				{
-					if (enchant.onUse(player, usingItem, targetBlock))
-						shouldCancel = true;
-				}
-			}
+			if (!hasEnchant(usingItem, enchant))
+				continue;
+
+			if (enchant.onUse(player, usingItem, targetBlock))
+				shouldCancel = true;
 		}
 		return !shouldCancel;
 	}
@@ -70,7 +70,7 @@ public class CustomToolEnchantHandler implements IBlockBreak, IPlayerRightClick
 
 	public ICustomToolEnchant getEnchant(String name)
 	{
-		return this.enchantMap.containsKey(name) ? this.enchantMap.get(name) : null;
+		return this.enchantMap.getOrDefault(name, null);
 	}
 
 	public Set<String> getAvailableEnchants()
@@ -78,6 +78,6 @@ public class CustomToolEnchantHandler implements IBlockBreak, IPlayerRightClick
 		return this.enchantMap.keySet();
 	}
 
-	private HashMap<String, ICustomToolEnchant> enchantMap = new HashMap<String, ICustomToolEnchant>();
-	private List<ICustomToolEnchant> enchants = new ArrayList<ICustomToolEnchant>();
+	private final HashMap<String, ICustomToolEnchant> enchantMap = new HashMap<>();
+	private final List<ICustomToolEnchant> enchants;
 }

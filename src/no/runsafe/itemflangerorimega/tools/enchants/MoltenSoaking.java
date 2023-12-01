@@ -28,26 +28,26 @@ public class MoltenSoaking extends CustomToolEnchant
 	{
 		ILocation location = rightClicked == null ? player.getLocation() : rightClicked.getLocation();
 
-		if (location != null && player.isSurvivalist())
-		{
-			player.removeExactItem(item, 1);
-			location.playEffect(WorldEffect.PORTAL, 0.5F, 100, 10F);
-			location.playSound(Sound.Portal.Trigger, 5F, 2F);
+		if (location == null || !player.isSurvivalist())
+			return true;
 
-			removeBlock(location, 0, 0);
+		player.removeExactItem(item, 1);
+		location.playEffect(WorldEffect.PORTAL, 0.5F, 100, 10F);
+		location.playSound(Sound.Portal.Trigger, 5F, 2F);
 
-			removeBlock(location, 1, 0);
-			removeBlock(location, 1, 1);
-			removeBlock(location, 0, 1);
+		removeBlock(location, 0, 0);
 
-			removeBlock(location, -1, 0);
-			removeBlock(location, -1, -1);
-			removeBlock(location, 0, -1);
+		removeBlock(location, 1, 0);
+		removeBlock(location, 1, 1);
+		removeBlock(location, 0, 1);
 
-			removeBlock(location, -1, 1);
-			removeBlock(location, 1, -1);
+		removeBlock(location, -1, 0);
+		removeBlock(location, -1, -1);
+		removeBlock(location, 0, -1);
 
-		}
+		removeBlock(location, -1, 1);
+		removeBlock(location, 1, -1);
+
 		return true;
 	}
 

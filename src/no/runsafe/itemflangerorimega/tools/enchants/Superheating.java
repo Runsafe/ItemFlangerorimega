@@ -23,15 +23,14 @@ public class Superheating extends CustomToolEnchant
 	@Override
 	public boolean onBlockBreak(IPlayer player, IBlock block)
 	{
-		if (block.is(Item.Ore.Iron) || block.is(Item.Ore.Gold))
-		{
-			block.set(Item.Unavailable.Air);
-			RunsafeMeta item = block.is(Item.Ore.Iron) ? Item.Materials.IronIngot.getItem() : Item.Materials.GoldIngot.getItem();
-			item.setAmount(1);
+		if (!block.is(Item.Ore.Iron) && !block.is(Item.Ore.Gold))
+			return false;
 
-			block.getWorld().dropItem(block.getLocation(), item);
-			return true;
-		}
-		return false;
+		block.set(Item.Unavailable.Air);
+		RunsafeMeta item = block.is(Item.Ore.Iron) ? Item.Materials.IronIngot.getItem() : Item.Materials.GoldIngot.getItem();
+		item.setAmount(1);
+
+		block.getWorld().dropItem(block.getLocation(), item);
+		return true;
 	}
 }

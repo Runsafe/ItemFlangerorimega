@@ -6,8 +6,8 @@ import no.runsafe.framework.minecraft.item.meta.RunsafeMeta;
 
 public interface ICustomToolEnchant
 {
-	public String getEnchantText();
-	public String getSimpleName();
-	public boolean onBlockBreak(IPlayer player, IBlock block);
-	public boolean onUse(IPlayer player, RunsafeMeta item, IBlock rightClicked);
+	String getEnchantText();
+	String getSimpleName();
+	boolean onBlockBreak(IPlayer player, IBlock block);
+	boolean onUse(IPlayer player, RunsafeMeta item, IBlock rightClicked);
 }

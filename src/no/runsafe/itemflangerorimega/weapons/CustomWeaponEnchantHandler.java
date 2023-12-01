@@ -39,30 +39,30 @@ public class CustomWeaponEnchantHandler implements IEntityDamageByEntityEvent
 	{
 		RunsafeEntity attacker = event.getDamageActor();
 
-		if (attacker != null && attacker instanceof ILivingEntity && event.getEntity() instanceof ILivingEntity)
+		if (!(attacker instanceof ILivingEntity) || !(event.getEntity() instanceof ILivingEntity))
+			return;
+
+		ILivingEntity livingAttacker = (ILivingEntity) attacker;
+		RunsafeMeta item = livingAttacker.getEquipment().getItemInHand();
+
+		if (item == null || item.is(Item.Unavailable.Air))
+			return;
+
+		List<String> lore = item.getLore();
+		if (lore == null)
+			return;
+
+		for (ICustomWeaponEnchant enchant : enchants.values())
 		{
-			ILivingEntity livingAttacker = (ILivingEntity) attacker;
-			RunsafeMeta item = livingAttacker.getEquipment().getItemInHand();
+			if (!lore.contains(ENCHANT_TAG + enchant.getEnchantText()))
+				continue;
 
-			if (item != null && !item.is(Item.Unavailable.Air))
-			{
-				List<String> lore = item.getLore();
-				if (lore == null)
-					return;
-
-				for (ICustomWeaponEnchant enchant : enchants.values())
-				{
-					if (lore.contains(ENCHANT_TAG + enchant.getEnchantText()))
-					{
-						boolean allow = enchant.onDamageEntity((ILivingEntity) event.getEntity());
-						if (!allow)
-							event.cancel();
-					}
-				}
-			}
+			boolean allow = enchant.onDamageEntity((ILivingEntity) event.getEntity());
+			if (!allow)
+				event.cancel();
 		}
 	}
 
-	private HashMap<String, ICustomWeaponEnchant> enchants = new HashMap<String, ICustomWeaponEnchant>(0);
+	private final HashMap<String, ICustomWeaponEnchant> enchants = new HashMap<>(0);
 	private static final String ENCHANT_TAG = "§r§7";
 }

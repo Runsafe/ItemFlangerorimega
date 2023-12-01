@@ -39,44 +39,43 @@ public class DergonThunder extends CustomArmourEnchant
 	@Override
 	public void entityDamageByEntityEvent(RunsafeMeta item, final RunsafeEntityDamageByEntityEvent event)
 	{
-		if (random.nextInt(100) <= 3)
+		if (random.nextInt(100) > 3)
+			return;
+
+		scheduler.startSyncTask(() ->
 		{
-			scheduler.startSyncTask(() ->
+			if (event.isCancelled())
+				return;
+
+			ILivingEntity entity = (ILivingEntity) event.getEntity();
+			List<IEntity> entities = entity.getNearbyEntities(10, 10, 10);
+
+			ILocation entityLocation = entity.getLocation();
+			if (entityLocation != null)
+				entityLocation.playEffect(effect, 0.3F, 100, 50);
+
+			for (IEntity closeEntity : entities)
 			{
-				if (event.isCancelled())
-					return;
+				if (!(closeEntity instanceof ILivingEntity))
+					continue;
 
-				ILivingEntity entity = (ILivingEntity) event.getEntity();
-				List<IEntity> entities = entity.getNearbyEntities(10, 10, 10);
+				ILivingEntity livingCloseEntity = (ILivingEntity) closeEntity;
+				livingCloseEntity.strikeWithLightning(true);
+				livingCloseEntity.damage(2D);
+				livingCloseEntity.setFireTicks(20 * 5); // Set them on fire for 5 seconds.
 
-				ILocation entityLocation = entity.getLocation();
-				if (entityLocation != null)
-					entityLocation.playEffect(effect, 0.3F, 100, 50);
+				if (entityLocation == null)
+					continue;
 
-				for (IEntity closeEntity : entities)
-				{
-					if (closeEntity instanceof ILivingEntity)
-					{
-						ILivingEntity livingCloseEntity = (ILivingEntity) closeEntity;
-						livingCloseEntity.strikeWithLightning(true);
-						livingCloseEntity.damage(2D);
-						livingCloseEntity.setFireTicks(20 * 5); // Set them on fire for 5 seconds.
+				ILocation closeEntityLocation = livingCloseEntity.getLocation();
+				if (closeEntityLocation == null)
+					continue;
 
-						if (entityLocation != null)
-						{
-							ILocation closeEntityLocation = livingCloseEntity.getLocation();
-							if (closeEntityLocation != null)
-							{
-								Vector velocity = entityLocation.toVector().add(closeEntityLocation.toVector()).normalize();
-								livingCloseEntity.setVelocity(velocity.multiply(6D));
-							}
-						}
-					}
-				}
-
-				entity.setHealth(entity.getMaxHealth()); // Heal to full.
-			}, 10L);
-		}
+				Vector velocity = entityLocation.toVector().add(closeEntityLocation.toVector()).normalize();
+				livingCloseEntity.setVelocity(velocity.multiply(6D));
+			}
+			entity.setHealth(entity.getMaxHealth()); // Heal to full.
+		}, 10L);
 	}
 
 	private final Random random = new Random();

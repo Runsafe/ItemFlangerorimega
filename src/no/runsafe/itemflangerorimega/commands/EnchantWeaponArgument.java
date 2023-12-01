@@ -29,7 +29,7 @@ public class EnchantWeaponArgument extends RequiredArgument implements ITabCompl
 			return ImmutableList.copyOf(options);
 
 		String match = partial.toLowerCase();
-		List<String> alternatives = new ArrayList<String>(options.size());
+		List<String> alternatives = new ArrayList<>(options.size());
 		for (String option : options)
 			if (option.toLowerCase().startsWith(match))
 				alternatives.add(option);
@@ -41,8 +41,8 @@ public class EnchantWeaponArgument extends RequiredArgument implements ITabCompl
 	public String expand(ICommandExecutor context, @Nullable String value)
 	{
 		List<String> options = getAlternatives((IPlayer) context, value);
-		return options.isEmpty() || options.size() > 1 ? null : options.get(0);
+		return options.size() != 1 ? null : options.get(0);
 	}
 
-	private CustomWeaponEnchantHandler handler;
+	private final CustomWeaponEnchantHandler handler;
 }
