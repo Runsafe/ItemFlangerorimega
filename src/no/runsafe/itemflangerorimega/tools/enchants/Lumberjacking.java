@@ -31,23 +31,23 @@ public class Lumberjacking extends CustomToolEnchant
 
 	private void breakBlock(IBlock block, int depth)
 	{
-		if (block.is(Item.BuildingBlock.Wood.Any) | block.is(Item.Decoration.Leaves.Any) || block.is(Item.BuildingBlock.Wood.New.Any))
-		{
-			block.breakNaturally();
-			ILocation location = block.getLocation();
+		if (!block.is(Item.BuildingBlock.Wood.Any) && !block.is(Item.Decoration.Leaves.Any) && !block.is(Item.BuildingBlock.Wood.New.Any))
+			return;
 
-			depth += 1;
+		block.breakNaturally();
+		ILocation location = block.getLocation();
 
-			if (depth < 100)
-			{
-				check(location, 1, 0, 0, depth);
-				check(location, -1, 0, 0, depth);
-				check(location, 0, 0, 1, depth);
-				check(location, 0, 0, -1, depth);
-				check(location, 0, 1, 0, depth);
-				check(location, 0, -1, 0, depth);
-			}
-		}
+		depth += 1;
+
+		if (depth >= 100)
+			return;
+
+		check(location, 1, 0, 0, depth);
+		check(location, -1, 0, 0, depth);
+		check(location, 0, 0, 1, depth);
+		check(location, 0, 0, -1, depth);
+		check(location, 0, 1, 0, depth);
+		check(location, 0, -1, 0, depth);
 	}
 
 	private void check(ILocation location, int offsetX, int offsetY, int offsetZ, int depth)

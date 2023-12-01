@@ -36,32 +36,32 @@ public class DispenseItem extends CustomBowEnchant
 	public boolean onArrowShoot(ILivingEntity entity, IEntity arrow)
 	{
 		int entityID = entity.getEntityId();
-		if (locations.containsKey(entityID))
-		{
-			ILocation chestLocation = locations.get(entityID);
-			IBlock chestBlock = chestLocation.getBlock();
+		if (!locations.containsKey(entityID))
+			return true;
 
-			if (chestBlock.is(Item.Decoration.Chest))
-			{
-				IChest chest = (IChest) chestBlock;
-				RunsafeInventory chestInventory = chest.getInventory();
+		ILocation chestLocation = locations.get(entityID);
+		IBlock chestBlock = chestLocation.getBlock();
 
-				List<RunsafeMeta> items = chestInventory.getContents();
+		if (!chestBlock.is(Item.Decoration.Chest))
+			return true;
 
-				if (!items.isEmpty())
-				{
-					RunsafeMeta item = items.get(0);
-					chestInventory.remove(item);
+		IChest chest = (IChest) chestBlock;
+		RunsafeInventory chestInventory = chest.getInventory();
 
-					IWorld world = arrow.getWorld();
-					if (world != null)
-					{
-						RunsafeItem itemEntity = world.dropItem(arrow.getLocation(), item);
-						arrow.setPassenger(itemEntity);
-					}
-				}
-			}
-		}
+		List<RunsafeMeta> items = chestInventory.getContents();
+
+		if (items.isEmpty())
+			return true;
+
+		RunsafeMeta item = items.get(0);
+		chestInventory.remove(item);
+
+		IWorld world = arrow.getWorld();
+		if (world == null)
+			return true;
+
+		RunsafeItem itemEntity = world.dropItem(arrow.getLocation(), item);
+		arrow.setPassenger(itemEntity);
 		return true;
 	}
 
@@ -74,15 +74,14 @@ public class DispenseItem extends CustomBowEnchant
 		RunsafeLivingEntity shooter = (RunsafeLivingEntity) shooterSource;
 
 		ILocation location = shooter.getLocation();
-		if (location != null)
-		{
-			location.offset(0, -1, 0);
+		if (location == null)
+			return;
 
-			IBlock block = location.getBlock();
-			if (block.is(Item.Decoration.Chest))
-					locations.put(shooter.getEntityId(), location);
-		}
+		location.offset(0, -1, 0);
 
+		IBlock block = location.getBlock();
+		if (block.is(Item.Decoration.Chest))
+			locations.put(shooter.getEntityId(), location);
 	}
 
 	private void chestCheck()
@@ -90,5 +89,5 @@ public class DispenseItem extends CustomBowEnchant
 
 	}
 
-	private ConcurrentHashMap<Integer, ILocation> locations = new ConcurrentHashMap<Integer, ILocation>(0);
+	private final ConcurrentHashMap<Integer, ILocation> locations = new ConcurrentHashMap<>(0);
 }

@@ -18,20 +18,20 @@ public class FireworkTest extends CustomBowEnchant
 	{
 		ILocation location = entity.getLocation();
 
-		if (location != null)
-		{
-			IEntity fireworkEntity = location.getWorld().spawnCreature(location, ProjectileEntity.Firework.getName());
-			Firework firework = (Firework) ((RunsafeEntity) fireworkEntity).getRaw();
+		if (location == null)
+			return true;
 
-			FireworkMeta meta = firework.getFireworkMeta();
-			FireworkEffect effect = FireworkEffect.builder().with(FireworkEffect.Type.BALL_LARGE).withColor(Color.OLIVE).withFade(Color.RED).flicker(true).trail(true).build();
+		IEntity fireworkEntity = location.getWorld().spawnCreature(location, ProjectileEntity.Firework.getName());
+		Firework firework = (Firework) ((RunsafeEntity) fireworkEntity).getRaw();
 
-			meta.addEffect(effect);
-			meta.setPower(3);
-			firework.setFireworkMeta(meta);
+		FireworkMeta meta = firework.getFireworkMeta();
+		FireworkEffect effect = FireworkEffect.builder().with(FireworkEffect.Type.BALL_LARGE).withColor(Color.OLIVE).withFade(Color.RED).flicker(true).trail(true).build();
 
-			arrow.setPassenger(fireworkEntity);
-		}
+		meta.addEffect(effect);
+		meta.setPower(3);
+		firework.setFireworkMeta(meta);
+
+		arrow.setPassenger(fireworkEntity);
 
 		return true;
 	}

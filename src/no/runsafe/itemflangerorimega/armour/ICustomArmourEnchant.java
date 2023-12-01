@@ -8,9 +8,9 @@ import no.runsafe.framework.minecraft.item.meta.RunsafeMeta;
 
 public interface ICustomArmourEnchant
 {
-	public String getEnchantText();
-	public String getSimpleName();
-	public void entityDamageEvent(RunsafeMeta item, RunsafeEntityDamageEvent event);
-	public void entityDamageByEntityEvent(RunsafeMeta item, RunsafeEntityDamageByEntityEvent event);
-	public void playerMove(IPlayer player, ILocation from, ILocation to);
+	String getEnchantText();
+	String getSimpleName();
+	void entityDamageEvent(RunsafeMeta item, RunsafeEntityDamageEvent event);
+	void entityDamageByEntityEvent(RunsafeMeta item, RunsafeEntityDamageByEntityEvent event);
+	void playerMove(IPlayer player, ILocation from, ILocation to);
 }

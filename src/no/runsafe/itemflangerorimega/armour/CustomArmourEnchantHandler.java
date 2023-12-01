@@ -80,15 +80,15 @@ public class CustomArmourEnchantHandler implements IEntityDamageEvent, IEntityDa
 	private void checkEnchants(RunsafeEntityEvent event)
 	{
 		RunsafeEntity entity = event.getEntity();
-		if (entity instanceof ILivingEntity)
-		{
-			RunsafeEntityEquipment equipment = ((ILivingEntity) entity).getEquipment();
+		if (!(entity instanceof ILivingEntity))
+			return;
 
-			processEnchants(equipment.getLeggings(), event);
-			processEnchants(equipment.getBoots(), event);
-			processEnchants(equipment.getChestplate(), event);
-			processEnchants(equipment.getHelmet(), event);
-		}
+		RunsafeEntityEquipment equipment = ((ILivingEntity) entity).getEquipment();
+
+		processEnchants(equipment.getLeggings(), event);
+		processEnchants(equipment.getBoots(), event);
+		processEnchants(equipment.getChestplate(), event);
+		processEnchants(equipment.getHelmet(), event);
 	}
 
 	private void processEnchants(RunsafeMeta item, RunsafeEntityEvent entityEvent)
@@ -102,19 +102,22 @@ public class CustomArmourEnchantHandler implements IEntityDamageEvent, IEntityDa
 
 		for (ICustomArmourEnchant enchant : enchants.values())
 		{
-			if (lore.contains(ENCHANT_TAG + enchant.getEnchantText()))
+			if (!lore.contains(ENCHANT_TAG + enchant.getEnchantText()))
+				continue;
+
+			if (!(entityEvent instanceof RunsafeEntityDamageEvent))
+				continue;
+
+			if (entityEvent instanceof RunsafeEntityDamageByEntityEvent)
 			{
-				if (entityEvent instanceof RunsafeEntityDamageEvent)
-				{
-					if (entityEvent instanceof RunsafeEntityDamageByEntityEvent)
-						enchant.entityDamageByEntityEvent(item, (RunsafeEntityDamageByEntityEvent) entityEvent);
-					else
-						enchant.entityDamageEvent(item, (RunsafeEntityDamageEvent) entityEvent);
-				}
+				enchant.entityDamageByEntityEvent(item, (RunsafeEntityDamageByEntityEvent) entityEvent);
+				continue;
 			}
+
+			enchant.entityDamageEvent(item, (RunsafeEntityDamageEvent) entityEvent);
 		}
 	}
 
-	private HashMap<String, ICustomArmourEnchant> enchants = new HashMap<String, ICustomArmourEnchant>(0);
+	private final HashMap<String, ICustomArmourEnchant> enchants = new HashMap<>(0);
 	private static final String ENCHANT_TAG = "§r§7";
 }

@@ -27,32 +27,34 @@ public class ScaffoldingHandler implements IBlockPlace, IBlockBreak, IEntityExpl
 	@Override
 	public boolean OnBlockPlace(IPlayer player, final IBlock block)
 	{
-		RunsafeMeta item = player.getItemInHand();
-		if (isItem(item) && control.playerCanBuildHere(player, block.getLocation()))
-		{
-			player.updateInventory();
-			final ILocation blockLocation = block.getLocation();
+		RunsafeMeta itemMain = player.getItemInMainHand();
+		RunsafeMeta itemOff = player.getItemInOffHand();
 
-			if (block.getRedstonePower() > 0)
-			{
-				blockLocation.playSound(Sound.Environment.Fizz, 1, 2);
-				Effect.Extinguish.Play(blockLocation);
-			}
-			else
-				scheduler.startSyncTask(() -> blockLocation.getBlock().set(Item.Unavailable.DoubleSlab.Plank), 1L);
+		if ((!isItem(itemMain) && !isItem(itemOff)) || !control.playerCanBuildHere(player, block.getLocation()))
+			return true;
+
+		player.updateInventory();
+		final ILocation blockLocation = block.getLocation();
+
+		if (block.getRedstonePower() > 0)
+		{
+			blockLocation.playSound(Sound.Environment.Fizz, 1, 2);
+			Effect.Extinguish.Play(blockLocation);
+			return true;
 		}
+
+		scheduler.startSyncTask(() -> blockLocation.getBlock().set(Item.Unavailable.DoubleSlab.Plank), 1L);
 		return true;
 	}
 
 	@Override
 	public boolean OnBlockBreak(IPlayer player, IBlock block)
 	{
-		if (block.is(Item.Unavailable.DoubleSlab.Plank))
-		{
-			handleScaffoldingBreak(block);
-			return false;
-		}
-		return true;
+		if (!block.is(Item.Unavailable.DoubleSlab.Plank))
+			return true;
+
+		handleScaffoldingBreak(block);
+		return false;
 	}
 
 	private void handleScaffoldingBreak(IBlock block)
@@ -105,11 +107,11 @@ public class ScaffoldingHandler implements IBlockPlace, IBlockBreak, IEntityExpl
 	{
 		for (IBlock block : event.getBlockList())
 		{
-			if (block.is(Item.Unavailable.DoubleSlab.Plank))
-			{
-				event.setYield(0);
-				return;
-			}
+			if (!block.is(Item.Unavailable.DoubleSlab.Plank))
+				continue;
+
+			event.setYield(0);
+			return;
 		}
 	}
 

@@ -21,7 +21,7 @@ public class EnchantTool extends PlayerCommand
 	public String OnExecute(IPlayer executor, IArgumentList parameters)
 	{
 		String enchantType = parameters.getValue("enchant");
-		RunsafeMeta item = executor.getItemInHand();
+		RunsafeMeta item = executor.getItemInMainHand();
 		if (item != null)
 		{
 			handler.enchantTool(item, handler.getEnchant(enchantType));
@@ -30,5 +30,5 @@ public class EnchantTool extends PlayerCommand
 		return "&cYou are not holding anything.";
 	}
 
-	private CustomToolEnchantHandler handler;
+	private final CustomToolEnchantHandler handler;
 }

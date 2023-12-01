@@ -8,10 +8,10 @@ import no.runsafe.framework.minecraft.entity.RunsafeProjectile;
 
 public interface ICustomBowEnchant
 {
-	public String getEnchantText();
-	public String getSimpleName();
-	public void onArrowCollideBlock(RunsafeProjectile projectile, IBlock block);
-	public void onArrowCollideEntity(RunsafeProjectile projectile, RunsafeEntity entity);
-	public void onArrowCollide(RunsafeProjectile projectile);
-	public boolean onArrowShoot(ILivingEntity shooter, IEntity arrow);
+	String getEnchantText();
+	String getSimpleName();
+	void onArrowCollideBlock(RunsafeProjectile projectile, IBlock block);
+	void onArrowCollideEntity(RunsafeProjectile projectile, RunsafeEntity entity);
+	void onArrowCollide(RunsafeProjectile projectile);
+	boolean onArrowShoot(ILivingEntity shooter, IEntity arrow);
 }
