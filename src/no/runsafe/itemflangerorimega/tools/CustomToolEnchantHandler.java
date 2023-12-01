@@ -49,7 +49,10 @@ public class CustomToolEnchantHandler implements IBlockBreak, IPlayerRightClick
 		if (usingItem == null)
 			return true;
 
-		if (!regionControl.playerCanBuildHere(player, targetBlock.getLocation()))
+		if (targetBlock != null && !regionControl.playerCanBuildHere(player, targetBlock.getLocation()))
+			return true;
+
+		if (!regionControl.playerCanBuildHere(player, player.getLocation()))
 			return true;
 
 		boolean shouldCancel = false;
