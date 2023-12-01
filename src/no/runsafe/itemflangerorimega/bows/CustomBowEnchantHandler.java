@@ -2,14 +2,13 @@ package no.runsafe.itemflangerorimega.bows;
 
 import no.runsafe.framework.api.entity.IEntity;
 import no.runsafe.framework.api.entity.ILivingEntity;
+import no.runsafe.framework.api.entity.projectiles.IProjectile;
 import no.runsafe.framework.api.event.entity.IEntityDamageByEntityEvent;
 import no.runsafe.framework.api.event.entity.IEntityShootBowEvent;
 import no.runsafe.framework.api.event.entity.IProjectileHitEvent;
 import no.runsafe.framework.api.player.IPlayer;
 import no.runsafe.framework.minecraft.Item;
 import no.runsafe.framework.minecraft.entity.ProjectileEntity;
-import no.runsafe.framework.minecraft.entity.RunsafeEntity;
-import no.runsafe.framework.minecraft.entity.RunsafeProjectile;
 import no.runsafe.framework.minecraft.event.entity.RunsafeEntityDamageByEntityEvent;
 import no.runsafe.framework.minecraft.event.entity.RunsafeEntityShootBowEvent;
 import no.runsafe.framework.minecraft.event.entity.RunsafeProjectileHitEvent;
@@ -33,10 +32,10 @@ public class CustomBowEnchantHandler implements IProjectileHitEvent, IEntityShoo
 	@Override
 	public void OnEntityDamageByEntity(RunsafeEntityDamageByEntityEvent event)
 	{
-		if (!(event.getDamageActor() instanceof RunsafeProjectile))
+		if (!(event.getDamageActor() instanceof IProjectile))
 			return;
 
-		RunsafeProjectile projectile = (RunsafeProjectile) event.getDamageActor();
+		IProjectile projectile = (IProjectile) event.getDamageActor();
 		if (projectile.getEntityType() != ProjectileEntity.Arrow || !this.isTrackedArrow(projectile))
 			return;
 
@@ -48,7 +47,7 @@ public class CustomBowEnchantHandler implements IProjectileHitEvent, IEntityShoo
 	@Override
 	public void OnProjectileHit(RunsafeProjectileHitEvent event)
 	{
-		RunsafeProjectile projectile = event.getProjectile();
+		IProjectile projectile = event.getProjectile();
 		if (!this.isTrackedArrow(projectile))
 			return;
 
@@ -75,12 +74,12 @@ public class CustomBowEnchantHandler implements IProjectileHitEvent, IEntityShoo
 		this.unTrackProjectile(projectile);
 	}
 
-	private void unTrackProjectile(RunsafeProjectile projectile)
+	private void unTrackProjectile(IProjectile projectile)
 	{
 		this.trackedArrows.remove(projectile.getEntityId());
 	}
 
-	private boolean isTrackedArrow(RunsafeProjectile projectile)
+	private boolean isTrackedArrow(IProjectile projectile)
 	{
 		return this.trackedArrows.containsKey(projectile.getEntityId());
 	}
@@ -115,7 +114,7 @@ public class CustomBowEnchantHandler implements IProjectileHitEvent, IEntityShoo
 		if (trackedArrows.containsKey(entityID))
 			return;
 
-		RunsafeEntity shootingEntity = event.getEntity();
+		IEntity shootingEntity = event.getEntity();
 
 		RunsafeMeta item = null;
 		if (shootingEntity instanceof IPlayer)
