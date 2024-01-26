@@ -28,6 +28,7 @@ import no.runsafe.itemflangerorimega.weapons.enchants.SlappingRank1;
 import no.runsafe.itemflangerorimega.weapons.enchants.SlappingRank2;
 import no.runsafe.itemflangerorimega.weapons.enchants.SlappingRank3;
 import no.runsafe.itemflangerorimega.weapons.enchants.SlappingRank4;
+import no.runsafe.itemflangerorimega.weapons.enchants.SlappingRank5;
 
 public class Plugin extends RunsafePlugin
 {
@@ -62,6 +63,7 @@ public class Plugin extends RunsafePlugin
 		addComponent(SlappingRank2.class);
 		addComponent(SlappingRank3.class);
 		addComponent(SlappingRank4.class);
+		addComponent(SlappingRank5.class);
 
 		// Handlers
 		addComponent(CustomBowEnchantHandler.class);
