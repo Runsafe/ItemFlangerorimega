@@ -52,7 +52,7 @@ public class SaplingGarner extends CustomToolEnchant
 
 	static
 	{
-		Map<Item, Item> map = new HashMap<Item, Item>();
+		Map<Item, Item> map = new HashMap<>();
 		map.put(Item.Decoration.Leaves.Oak, Item.Decoration.Sapling.Oak);
 		map.put(Item.Decoration.Leaves.Spruce, Item.Decoration.Sapling.Spruce);
 		map.put(Item.Decoration.Leaves.Jungle, Item.Decoration.Sapling.Jungle);

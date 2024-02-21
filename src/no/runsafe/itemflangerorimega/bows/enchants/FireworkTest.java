@@ -22,6 +22,8 @@ public class FireworkTest extends CustomBowEnchant
 			return true;
 
 		IEntity fireworkEntity = location.getWorld().spawnCreature(location, ProjectileEntity.Firework.getName());
+		if (fireworkEntity == null)
+			return true;
 		Firework firework = (Firework) ((RunsafeEntity) fireworkEntity).getRaw();
 
 		FireworkMeta meta = firework.getFireworkMeta();

@@ -83,10 +83,5 @@ public class DispenseItem extends CustomBowEnchant
 			locations.put(shooter.getEntityId(), location);
 	}
 
-	private void chestCheck()
-	{
-
-	}
-
 	private final ConcurrentHashMap<Integer, ILocation> locations = new ConcurrentHashMap<>(0);
 }

@@ -24,6 +24,8 @@ public class ExplosiveCharge extends CustomBowEnchant
 	public void onArrowCollide(IProjectile projectile)
 	{
 		ILocation loc = projectile.getLocation();
+		if (loc == null)
+			return;
 
 		ITNTPrimed primedTNT = (ITNTPrimed) ProjectileEntity.PrimedTNT.spawn(loc);
 		primedTNT.setIsIncendiary(true);
