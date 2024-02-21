@@ -30,7 +30,7 @@ public class ScaffoldingHandler implements IBlockPlace, IBlockBreak, IEntityExpl
 		RunsafeMeta itemMain = player.getItemInMainHand();
 		RunsafeMeta itemOff = player.getItemInOffHand();
 
-		if ((!isItem(itemMain) && !isItem(itemOff)) || !control.playerCanBuildHere(player, block.getLocation()))
+		if ((isNotScaffolding(itemMain) && isNotScaffolding(itemOff)) || control.playerCannotBuildHere(player, block.getLocation()))
 			return true;
 
 		player.updateInventory();
@@ -82,13 +82,13 @@ public class ScaffoldingHandler implements IBlockPlace, IBlockBreak, IEntityExpl
 			handleScaffoldingBreak(block);
 	}
 
-	private boolean isItem(RunsafeMeta item)
+	private boolean isNotScaffolding(RunsafeMeta item)
 	{
 		if (item == null || !item.is(Item.Redstone.Device.NoteBlock))
-			return false;
+			return true;
 
 		String itemName = item.getDisplayName();
-		return itemName != null && itemName.equals("§rCrate of Scaffolding");
+		return itemName == null || !itemName.equals("§rCrate of Scaffolding");
 	}
 
 	public static RunsafeMeta getItem(int amount)

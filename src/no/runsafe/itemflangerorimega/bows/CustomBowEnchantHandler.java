@@ -36,7 +36,7 @@ public class CustomBowEnchantHandler implements IProjectileHitEvent, IEntityShoo
 			return;
 
 		IProjectile projectile = (IProjectile) event.getDamageActor();
-		if (projectile.getEntityType() != ProjectileEntity.Arrow || !this.isTrackedArrow(projectile))
+		if (projectile.getEntityType() != ProjectileEntity.Arrow || this.isRegularArrow(projectile))
 			return;
 
 		List<ICustomBowEnchant> arrowEnchants = this.trackedArrows.get(projectile.getEntityId());
@@ -48,7 +48,7 @@ public class CustomBowEnchantHandler implements IProjectileHitEvent, IEntityShoo
 	public void OnProjectileHit(RunsafeProjectileHitEvent event)
 	{
 		IProjectile projectile = event.getProjectile();
-		if (!this.isTrackedArrow(projectile))
+		if (this.isRegularArrow(projectile))
 			return;
 
 		IEntity shooter = projectile.getShootingEntity();
@@ -57,7 +57,8 @@ public class CustomBowEnchantHandler implements IProjectileHitEvent, IEntityShoo
 			Plugin.debugger.debugFine("Arrow collision. shooter entity type: " + shooter.getEntityType());
 			Plugin.debugger.debugFine("Arrow collision. shooter entity UUID: " + shooter.getUniqueId());
 
-			if (shooter instanceof IPlayer && !regionControl.playerCanBuildHere((IPlayer) shooter, projectile.getLocation()))
+			if (shooter instanceof IPlayer && regionControl.playerCannotBuildHere(
+				(IPlayer) shooter, projectile.getLocation()))
 			{
 				this.unTrackProjectile(projectile);
 				return;
@@ -79,20 +80,20 @@ public class CustomBowEnchantHandler implements IProjectileHitEvent, IEntityShoo
 		this.trackedArrows.remove(projectile.getEntityId());
 	}
 
-	private boolean isTrackedArrow(IProjectile projectile)
+	private boolean isRegularArrow(IProjectile projectile)
 	{
-		return this.trackedArrows.containsKey(projectile.getEntityId());
+		return !this.trackedArrows.containsKey(projectile.getEntityId());
 	}
 
-	private boolean hasEnchant(RunsafeMeta item, ICustomBowEnchant enchant)
+	private boolean notAlreadyEnchanted(RunsafeMeta item, ICustomBowEnchant enchant)
 	{
 		List<String> lore = item.getLore();
-		return lore != null && lore.contains("§r§7" + enchant.getEnchantText());
+		return lore == null || !lore.contains("§r§7" + enchant.getEnchantText());
 	}
 
 	public void enchantBow(RunsafeMeta item, ICustomBowEnchant enchant)
 	{
-		if (!this.hasEnchant(item, enchant))
+		if (this.notAlreadyEnchanted(item, enchant))
 			item.addLore("§r§7" + enchant.getEnchantText());
 	}
 
@@ -119,7 +120,7 @@ public class CustomBowEnchantHandler implements IProjectileHitEvent, IEntityShoo
 		RunsafeMeta item = null;
 		if (shootingEntity instanceof IPlayer)
 		{
-			if (!regionControl.playerCanBuildHere((IPlayer) shootingEntity, shootingEntity.getLocation()))
+			if (regionControl.playerCannotBuildHere((IPlayer) shootingEntity, shootingEntity.getLocation()))
 				return;
 
 			item = ((IPlayer) shootingEntity).getItemInMainHand();
@@ -133,7 +134,7 @@ public class CustomBowEnchantHandler implements IProjectileHitEvent, IEntityShoo
 		List<ICustomBowEnchant> bowEnchants = new ArrayList<>();
 		for (ICustomBowEnchant enchant : enchants)
 		{
-			if (!hasEnchant(item, enchant))
+			if (notAlreadyEnchanted(item, enchant))
 				continue;
 
 			boolean allowShoot = enchant.onArrowShoot((ILivingEntity) shootingEntity, event.getProjectile());

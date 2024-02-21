@@ -22,7 +22,7 @@ public class CustomToolEnchantHandler implements IBlockBreak, IPlayerRightClick
 	@Override
 	public boolean OnBlockBreak(IPlayer player, IBlock block)
 	{
-		if (!regionControl.playerCanBuildHere(player, block.getLocation()))
+		if (regionControl.playerCannotBuildHere(player, block.getLocation()))
 			return true;
 
 		RunsafeMeta item = player.getItemInMainHand();
@@ -33,7 +33,7 @@ public class CustomToolEnchantHandler implements IBlockBreak, IPlayerRightClick
 		boolean shouldCancel = false;
 		for (ICustomToolEnchant enchant : enchants)
 		{
-			if (!hasEnchant(item, enchant))
+			if (notAlreadyEnchanted(item, enchant))
 				continue;
 
 			if (enchant.onBlockBreak(player, block))
@@ -49,16 +49,16 @@ public class CustomToolEnchantHandler implements IBlockBreak, IPlayerRightClick
 		if (usingItem == null)
 			return true;
 
-		if (targetBlock != null && !regionControl.playerCanBuildHere(player, targetBlock.getLocation()))
+		if (targetBlock != null && regionControl.playerCannotBuildHere(player, targetBlock.getLocation()))
 			return true;
 
-		if (!regionControl.playerCanBuildHere(player, player.getLocation()))
+		if (regionControl.playerCannotBuildHere(player, player.getLocation()))
 			return true;
 
 		boolean shouldCancel = false;
 		for (ICustomToolEnchant enchant : enchants)
 		{
-			if (!hasEnchant(usingItem, enchant))
+			if (notAlreadyEnchanted(usingItem, enchant))
 				continue;
 
 			if (enchant.onUse(player, usingItem, targetBlock))
@@ -67,15 +67,15 @@ public class CustomToolEnchantHandler implements IBlockBreak, IPlayerRightClick
 		return !shouldCancel;
 	}
 
-	private boolean hasEnchant(RunsafeMeta item, ICustomToolEnchant enchant)
+	private boolean notAlreadyEnchanted(RunsafeMeta item, ICustomToolEnchant enchant)
 	{
 		List<String> lore = item.getLore();
-		return lore != null && lore.contains("§r§7" + enchant.getEnchantText());
+		return lore == null || !lore.contains("§r§7" + enchant.getEnchantText());
 	}
 
 	public void enchantTool(RunsafeMeta item, ICustomToolEnchant enchant)
 	{
-		if (!this.hasEnchant(item, enchant))
+		if (this.notAlreadyEnchanted(item, enchant))
 			item.addLore("§r§7" + enchant.getEnchantText());
 	}
 
