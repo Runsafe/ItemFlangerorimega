@@ -13,6 +13,7 @@ import no.runsafe.itemflangerorimega.bows.CustomBowEnchantHandler;
 import no.runsafe.itemflangerorimega.bows.enchants.DispenseItem;
 import no.runsafe.itemflangerorimega.bows.enchants.ExplosiveCharge;
 import no.runsafe.itemflangerorimega.bows.enchants.FireworkTest;
+import no.runsafe.itemflangerorimega.bows.enchants.KaosFire;
 import no.runsafe.itemflangerorimega.commands.EnchantArmour;
 import no.runsafe.itemflangerorimega.commands.EnchantBow;
 import no.runsafe.itemflangerorimega.commands.EnchantTool;
@@ -47,6 +48,7 @@ public class Plugin extends RunsafePlugin
 		addComponent(ExplosiveCharge.class);
 		addComponent(FireworkTest.class);
 		addComponent(DispenseItem.class);
+		addComponent(KaosFire.class);
 
 		// Armour enchants
 		addComponent(Resilience.class);
