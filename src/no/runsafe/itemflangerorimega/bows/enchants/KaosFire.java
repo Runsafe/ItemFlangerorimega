@@ -47,7 +47,7 @@ public class KaosFire extends CustomBowEnchant
 					fireLoc.getBlock().set(Item.Unavailable.Fire);
 				}
 
-		loc.playSound(Sound.Environment.Explode);
+		loc.playSound(Sound.Creature.Illager.Illusion.CastSpell);
 		projectile.remove();
 	}
 }
