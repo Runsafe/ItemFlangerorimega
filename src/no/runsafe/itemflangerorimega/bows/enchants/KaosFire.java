@@ -1,6 +1,8 @@
 package no.runsafe.itemflangerorimega.bows.enchants;
 
 import no.runsafe.framework.api.ILocation;
+import no.runsafe.framework.api.entity.IEntity;
+import no.runsafe.framework.api.entity.ILivingEntity;
 import no.runsafe.framework.api.entity.projectiles.IProjectile;
 import no.runsafe.framework.minecraft.Item;
 import no.runsafe.framework.minecraft.Sound;
@@ -47,7 +49,18 @@ public class KaosFire extends CustomBowEnchant
 					fireLoc.getBlock().set(Item.Unavailable.Fire);
 				}
 
-		loc.playSound(Sound.Creature.Illager.Illusion.CastSpell);
+		loc.playSound(Sound.Creature.Wither.Hurt, 50, 1);
 		projectile.remove();
+	}
+
+	@Override
+	public boolean onArrowShoot(ILivingEntity entity, IEntity arrow)
+	{
+		ILocation source = entity.getLocation();
+		if (source == null)
+			return false;
+
+		source.playSound(Sound.Creature.Illager.Illusion.CastSpell);
+		return true;
 	}
 }
