@@ -27,7 +27,7 @@ public class KaosFire extends CustomBowEnchant
 		if (loc == null)
 			return;
 
-		int radius = 3; // Scalable sphere
+		int radius = 6; // Scalable sphere
 		int radiusSquared = radius * radius;
 
 		for (double x = -radius; x <= radius; x++)
