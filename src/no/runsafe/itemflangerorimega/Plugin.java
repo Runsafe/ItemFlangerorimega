@@ -1,6 +1,6 @@
 package no.runsafe.itemflangerorimega;
 
-import no.runsafe.framework.RunsafePlugin;
+import no.runsafe.framework.RunsafeConfigurablePlugin;
 import no.runsafe.framework.api.command.Command;
 import no.runsafe.framework.api.log.IDebug;
 import no.runsafe.framework.features.Commands;
@@ -31,7 +31,7 @@ import no.runsafe.itemflangerorimega.weapons.enchants.SlappingRank3;
 import no.runsafe.itemflangerorimega.weapons.enchants.SlappingRank4;
 import no.runsafe.itemflangerorimega.weapons.enchants.SlappingRank5;
 
-public class Plugin extends RunsafePlugin
+public class Plugin extends RunsafeConfigurablePlugin
 {
 	public static IDebug debugger;
 
@@ -83,5 +83,8 @@ public class Plugin extends RunsafePlugin
 
 		addComponent(ScaffoldingHandler.class);
 		addComponent(ScaffoldingCommand.class);
+
+		// Config
+		addComponent(Config.class);
 	}
 }
