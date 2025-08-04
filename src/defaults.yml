@@ -1,2 +1,4 @@
 blacklistedWorlds:
   - Creative
+kaosFireDurabilityLoss: 100
+kaosFireRadius: 6
