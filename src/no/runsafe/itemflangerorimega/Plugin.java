@@ -1,6 +1,6 @@
 package no.runsafe.itemflangerorimega;
 
-import no.runsafe.framework.RunsafePlugin;
+import no.runsafe.framework.RunsafeConfigurablePlugin;
 import no.runsafe.framework.api.command.Command;
 import no.runsafe.framework.api.log.IDebug;
 import no.runsafe.framework.features.Commands;
@@ -13,6 +13,7 @@ import no.runsafe.itemflangerorimega.bows.CustomBowEnchantHandler;
 import no.runsafe.itemflangerorimega.bows.enchants.DispenseItem;
 import no.runsafe.itemflangerorimega.bows.enchants.ExplosiveCharge;
 import no.runsafe.itemflangerorimega.bows.enchants.FireworkTest;
+import no.runsafe.itemflangerorimega.bows.enchants.KaosFire;
 import no.runsafe.itemflangerorimega.commands.EnchantArmour;
 import no.runsafe.itemflangerorimega.commands.EnchantBow;
 import no.runsafe.itemflangerorimega.commands.EnchantTool;
@@ -30,7 +31,7 @@ import no.runsafe.itemflangerorimega.weapons.enchants.SlappingRank3;
 import no.runsafe.itemflangerorimega.weapons.enchants.SlappingRank4;
 import no.runsafe.itemflangerorimega.weapons.enchants.SlappingRank5;
 
-public class Plugin extends RunsafePlugin
+public class Plugin extends RunsafeConfigurablePlugin
 {
 	public static IDebug debugger;
 
@@ -47,6 +48,7 @@ public class Plugin extends RunsafePlugin
 		addComponent(ExplosiveCharge.class);
 		addComponent(FireworkTest.class);
 		addComponent(DispenseItem.class);
+		addComponent(KaosFire.class);
 
 		// Armour enchants
 		addComponent(Resilience.class);
@@ -81,5 +83,8 @@ public class Plugin extends RunsafePlugin
 
 		addComponent(ScaffoldingHandler.class);
 		addComponent(ScaffoldingCommand.class);
+
+		// Config
+		addComponent(Config.class);
 	}
 }

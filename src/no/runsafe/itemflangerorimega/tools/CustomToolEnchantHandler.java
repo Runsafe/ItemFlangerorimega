@@ -5,6 +5,7 @@ import no.runsafe.framework.api.event.block.IBlockBreak;
 import no.runsafe.framework.api.event.player.IPlayerRightClick;
 import no.runsafe.framework.api.player.IPlayer;
 import no.runsafe.framework.minecraft.item.meta.RunsafeMeta;
+import no.runsafe.itemflangerorimega.Config;
 import no.runsafe.worldguardbridge.IRegionControl;
 
 import java.util.*;
@@ -22,6 +23,9 @@ public class CustomToolEnchantHandler implements IBlockBreak, IPlayerRightClick
 	@Override
 	public boolean OnBlockBreak(IPlayer player, IBlock block)
 	{
+		if (Config.isBlacklistedWorld(player.getWorld()))
+			return true;
+
 		if (regionControl.playerCannotBuildHere(player, block.getLocation()))
 			return true;
 
@@ -47,6 +51,9 @@ public class CustomToolEnchantHandler implements IBlockBreak, IPlayerRightClick
 	public boolean OnPlayerRightClick(IPlayer player, RunsafeMeta usingItem, IBlock targetBlock)
 	{
 		if (usingItem == null)
+			return true;
+
+		if (Config.isBlacklistedWorld(player.getWorld()))
 			return true;
 
 		if (targetBlock != null && regionControl.playerCannotBuildHere(player, targetBlock.getLocation()))

@@ -13,6 +13,7 @@ import no.runsafe.framework.minecraft.event.entity.RunsafeEntityDamageByEntityEv
 import no.runsafe.framework.minecraft.event.entity.RunsafeEntityShootBowEvent;
 import no.runsafe.framework.minecraft.event.entity.RunsafeProjectileHitEvent;
 import no.runsafe.framework.minecraft.item.meta.RunsafeMeta;
+import no.runsafe.itemflangerorimega.Config;
 import no.runsafe.itemflangerorimega.Plugin;
 import no.runsafe.worldguardbridge.IRegionControl;
 
@@ -116,6 +117,9 @@ public class CustomBowEnchantHandler implements IProjectileHitEvent, IEntityShoo
 			return;
 
 		IEntity shootingEntity = event.getEntity();
+
+		if (Config.isBlacklistedWorld(shootingEntity.getWorld()))
+			return;
 
 		RunsafeMeta item = null;
 		if (shootingEntity instanceof IPlayer)
