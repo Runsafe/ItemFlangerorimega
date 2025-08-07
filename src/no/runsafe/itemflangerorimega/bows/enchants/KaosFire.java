@@ -6,6 +6,7 @@ import no.runsafe.framework.api.entity.ILivingEntity;
 import no.runsafe.framework.api.entity.projectiles.IProjectile;
 import no.runsafe.framework.minecraft.Item;
 import no.runsafe.framework.minecraft.Sound;
+import no.runsafe.itemflangerorimega.Config;
 import no.runsafe.itemflangerorimega.bows.CustomBowEnchant;
 
 public class KaosFire extends CustomBowEnchant
@@ -29,7 +30,7 @@ public class KaosFire extends CustomBowEnchant
 		if (loc == null)
 			return;
 
-		int radius = 6; // Scalable sphere
+		int radius = Config.kaosFireRadius; // Scalable sphere
 		int radiusSquared = radius * radius;
 
 		for (double x = -radius; x <= radius; x++)
