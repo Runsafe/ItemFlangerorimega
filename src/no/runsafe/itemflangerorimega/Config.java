@@ -14,7 +14,6 @@ public class Config implements IConfigurationChanged
 	{
 		worlds.clear();
 		worlds.addAll(config.getConfigValueAsList("blacklistedWorlds"));
-		kaosFireDurabilityLoss = config.getConfigValueAsInt("kaosFireDurabilityLoss");
 		kaosFireRadius = config.getConfigValueAsInt("kaosFireRadius");
 	}
 
@@ -27,6 +26,5 @@ public class Config implements IConfigurationChanged
 	}
 
 	private static final List<String> worlds = new ArrayList<>(0);
-	public static int kaosFireDurabilityLoss;
 	public static int kaosFireRadius;
 }
